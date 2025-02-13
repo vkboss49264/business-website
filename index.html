@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!-- Force cache update -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <button id="darkModeToggle">Toggle Dark Mode</button>
+        <h1>Welcome to My Website</h1>
+        <nav>
+            <ul>
+                <li><a href="home">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><button onclick="openAuthModal()">Login / Signup</button></li>
+            </ul>
+        </nav>
+        
+            <form action="https://www.google.com/search" method="GET" target="_blank">
+                <input type="text" name="q" placeholder="Search on Google..." required>
+                <button type="submit">🔍 Search</button>
+            </form>
+            
+    </header>
+
+    <p>© 
+
+    <main>
+        <div class="slideshow">
+            <img id="slide" src="/home/vishal/Downloads/vk.png" alt="Slideshow">
+        </div>
+        <section class="testimonials">
+            <blockquote>
+                "This website is amazing!"
+                <cite>- Happy User</cite>
+            </blockquote>
+        </section>        
+       
+
+<p id="user-info"></p>
+
+    </main>
+<!-- Login / Signup Modal (Hidden by Default) -->
+<div id="auth-modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeAuthModal()">&times;</span>
+        <h2>Login / Signup</h2>
+
+        <!-- Signup Form -->
+        <h3>Sign Up</h3>
+        <input type="text" id="signup-username" placeholder="Enter Username">
+        <input type="password" id="signup-password" placeholder="Enter Password">
+        <button onclick="signUp()">Sign Up</button>
+
+        <!-- Login Form -->
+        <h3>Login</h3>
+        <input type="text" id="login-username" placeholder="Enter Username">
+        <input type="password" id="login-password" placeholder="Enter Password">
+        <button onclick="logIn()">Log In</button>
+
+        <!-- Logout & User Info -->
+        <p id="user-info"></p>
+        <button id="logout-btn" onclick="logOut()" style="display:none;">Log Out</button>
+    </div>
+</div>
+
+    <footer>
+        <p>2025 My Website</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

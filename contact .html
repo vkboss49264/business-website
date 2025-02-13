@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Contact Us</h1>
+    </header>
+
+    <main>
+        <form action="https://formsubmit.co/vishalkumar049263@gmail.com" method="POST">
+            <input type="hidden" name="_next" value="thank-you.html">  <!-- Redirect after submission -->
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+        
+            <button type="submit">Send Message</button>
+        </form> 
+        <div class="social-links">
+            <a href="https://www.facebook.com/share/19kb4C6TZ5/" target="_blank">Facebook</a>
+            <a href="https://www.instagram.com/v_i_s_h_a_l_1827?igsh=MWJ5ZHdvcnE1bXhlbA==" target="_blank">insta</a>
+            <a href="https://www.linkedin.com/in/vishal-kumar-b8b056297?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">LinkedIn</a>
+        </div>
+        <div class="faq-section">
+            <h2>Frequently Asked Questions (FAQ)</h2>
+        
+            <button class="faq-button" onclick="toggleFAQ('faq1')">
+                <span>❓ How can I contact support?</span>
+            </button>
+            <div id="faq1" class="faq-content">You can email us at vishalkumar2257r@gmail.com</div>
+        
+            <button class="faq-button" onclick="toggleFAQ('faq2')">
+                <span>⏰ What are your working hours?</span>
+            </button>
+            <div id="faq2" class="faq-content">We are available Monday to Friday, 9 AM - 6 PM.</div>
+        
+            <button class="faq-button" onclick="toggleFAQ('faq3')">
+                <span>📨 How long does it take to get a response?</span>
+            </button>
+            <div id="faq3" class="faq-content">We usually reply within 24-48 hours.</div>
+        </div>
+        
+        
+        <p id="successMessage" class="hidden">Message sent successfully!</p>
+        
+    </main>
+    <footer>
+        <p>2025 My Website</p>
+    </footer>
+    <script>
+        function toggleFAQ(id) {
+            var faq = document.getElementById(id);
+            
+            if (faq.style.display === "block") {
+                faq.style.opacity = 0;
+                setTimeout(() => {
+                    faq.style.display = "none";
+                }, 300); // 300ms fade-out
+            } else {
+                faq.style.display = "block";
+                faq.style.opacity = 0;
+                setTimeout(() => {
+                    faq.style.opacity = 1;
+                }, 50); // 50ms delay to trigger fade-in
+            }
+        }
+        </script>
+</body>
+</html>

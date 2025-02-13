@@ -1,0 +1,479 @@
+/* Reset default margins and paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    color: #333;
+}
+
+/* Header styling */
+header {
+    background: #333;
+    color: white;
+    padding: 1em 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Main content */
+main {
+    margin: 20px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+footer {
+    margin-top: 20px;
+    padding: 10px;
+    background: #333;
+    color: white;
+}
+.dark-mode {
+    background-color: #222;
+    color: white;
+}
+.slideshow img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+.testimonials {
+    background: lightgray;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+}
+
+.hidden {
+    display: none;
+    color: green;
+    font-weight: bold;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.animated {
+    animation: fadeIn 1s ease-in-out;
+}
+/* About Section */
+#about {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+/* Team Members */
+.team {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.team-member {
+    text-align: center;
+    width: 200px;
+}
+
+.team-member img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.team-member img:hover {
+    transform: scale(1.05);
+}
+
+/* Timeline */
+.timeline {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.timeline-item {
+    width: 60%;
+    padding: 15px;
+    border-left: 4px solid #007bff;
+    margin-bottom: 20px;
+    position: relative;
+    background: #f9f9f9;
+    border-radius: 5px;
+}
+
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -10px;
+    top: 10px;
+    width: 16px;
+    height: 16px;
+    background: #007bff;
+    border-radius: 50%;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animated {
+    animation: fadeIn 1s ease-in-out;
+}
+
+.social-links {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.social-links a {
+    margin: 10px;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    color: white;
+    background: #007bff;
+    display: inline-block;
+}
+
+.social-links a:hover {
+    background: #0056b3;
+}
+.faq-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.faq-button {
+    width: 80%;
+    padding: 10px;
+    margin: 5px;
+    font-size: 16px;
+    border: none;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.faq-button:hover {
+    background: #0056b3;
+}
+
+.faq-content {
+    display: none;
+    margin: 5px 0;
+    padding: 10px;
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+.faq-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.faq-button {
+    width: 80%;
+    padding: 12px;
+    margin: 5px;
+    font-size: 18px;
+    border: none;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.faq-button:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+}
+
+.faq-content {
+    display: none;
+    margin: 5px 0;
+    padding: 10px;
+    background: #f1f1f1;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: left;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    transition: opacity 0.3s;
+}
+form {
+    text-align: center;
+    margin: 20px auto;
+}
+
+input[type="text"] {
+    width: 300px;
+    padding: 10px;
+    border: 2px solid #007BFF;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+/* Modal Background */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Modal Content Box */
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    width: 30%;
+    text-align: center;
+    border-radius: 8px;
+}
+
+/* Close Button */
+.close {
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+}
+/* Centering the form */
+.auth-container, .profile-container {
+    width: 350px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 8px;
+    background: #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.auth-container h2, .profile-container h2 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.auth-container input, .profile-container input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.auth-container button, .profile-container button {
+    width: 100%;
+    padding: 10px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.auth-container button:hover, .profile-container button:hover {
+    background: #0056b3;
+}
+
+/* Profile Section */
+#user-profile {
+    width: 350px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    text-align: center;
+}
+
+#user-profile h2 {
+    color: #444;
+}
+
+#user-profile p {
+    font-size: 16px;
+    color: #555;
+}
+
+#profile-form {
+    margin-top: 15px;
+}
+
+#profile-form input {
+    width: 90%;
+    padding: 8px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#profile-form button {
+    background: #28a745;
+}
+
+#profile-form button:hover {
+    background: #218838;
+}
+
+button.logout {
+    background: #dc3545;
+    margin-top: 10px;
+}
+
+button.logout:hover {
+    background: #c82333;
+}
+/* Responsive Design */
+@media screen and (max-width: 600px) {
+    .auth-container, .profile-container, #user-profile {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .auth-container input, 
+    .profile-container input,
+    #profile-form input {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    .auth-container button, 
+    .profile-container button,
+    #profile-form button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    /* Adjust header navigation */
+    nav ul {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        text-align: center;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+
+    /* Adjust the profile section for smaller screens */
+    #user-profile {
+        padding: 20px;
+    }
+}
+#blog-section {
+    width: 60%;
+    margin: auto;
+    text-align: center;
+}
+
+#blogTitle, #blogContent {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+button {
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+#blogsContainer div {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
