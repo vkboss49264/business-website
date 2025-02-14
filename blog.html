@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Blog</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="blog-form">
+            <h2>Write a New Blog</h2>
+            <textarea id="blog-content" placeholder="Write your blog here..."></textarea>
+            <button onclick="submitBlog()">Post Blog</button>
+        </section>
+
+        <section id="blog-posts">
+            <h2>Latest Blogs</h2>
+            <div id="posts-container"></div>
+        </section>
+    </main>
+
+    <script src="blog.js"></script>
+</body>
+</html>
