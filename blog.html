@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Blog</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Blog Form -->
+        <section id="blog-form">
+            <h2>Write a New Blog</h2>
+
+            <!-- Title Input -->
+            <input type="text" id="blog-title" placeholder="Enter blog title" required>
+
+            <!-- Content Textarea -->
+            <textarea id="blog-content" placeholder="Write your blog here..."></textarea>
+        
+            <!-- File Input for Images/Videos -->
+            <input type="file" id="media-upload" accept="image/*,video/*">
+            
+            <button onclick="submitBlog()">Post Blog</button>
+        </section>
+
+        <!-- Blog Posts -->
+        <section id="blog-posts">
+            <h2>Latest Blogs</h2>
+            <div id="posts-container"></div>
+        </section>
+    </main>
+
+    <script src="blog.js"></script>
+</body>
+</html>
