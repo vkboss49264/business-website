@@ -50,6 +50,11 @@ document.getElementById("upload-pic").addEventListener("change", function () {
             compressImage(e.target.result, 0.5, (compressedImage) => {
                 document.getElementById("profile-pic").src = compressedImage;
                 localStorage.setItem("profilePic", compressedImage);
+
+                // Update user profile picture
+                let userProfile = JSON.parse(localStorage.getItem("userProfile")) || {};
+                userProfile.profilePic = compressedImage;
+                localStorage.setItem("userProfile", JSON.stringify(userProfile));
             });
         };
         reader.readAsDataURL(file);
@@ -90,6 +95,7 @@ function postBlog() {
         }
 
         const blogPost = {
+            id: Date.now(), // Unique ID for blog
             author: savedProfile.username,
             profilePic: savedProfile.profilePic || "default-avatar.png",
             content: blogContent,
@@ -113,27 +119,27 @@ function postBlog() {
     }
 }
 
-// ✅ Load Blogs (Show Only User Blogs)
+// ✅ Load Blogs (Show All Users' Blogs)
 function loadBlogs() {
     try {
         const blogsContainer = document.getElementById("blogs-container");
         blogsContainer.innerHTML = "";
-        const savedProfile = JSON.parse(localStorage.getItem("userProfile"));
-
-        if (!savedProfile) return;
-
         const blogs = JSON.parse(localStorage.getItem("blogs")) || {};
-        const userBlogs = blogs[savedProfile.username] || [];
 
-        userBlogs.forEach((blog, index) => {
+        let allBlogs = [];
+        Object.values(blogs).forEach(userBlogs => allBlogs.push(...userBlogs));
+
+        allBlogs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)); // Show latest first
+
+        allBlogs.forEach((blog) => {
             const blogHTML = `
                 <div class="blog-post">
                     <img src="${blog.profilePic}" class="blog-author-pic">
                     <p><strong>${blog.author}</strong> - ${blog.timestamp}</p>
                     <p>${blog.content}</p>
-                    <button onclick="likePost(${index})">❤️ Like (${blog.likes})</button>
-                    <button onclick="commentOnPost(${index})">💬 Comment</button>
-                    <div id="comments-${index}">
+                    <button onclick="likePost(${blog.id})">❤️ Like (${blog.likes})</button>
+                    <button onclick="commentOnPost(${blog.id})">💬 Comment</button>
+                    <div id="comments-${blog.id}">
                         ${blog.comments.map(c => `<p>🗨️ ${c}</p>`).join("")}
                     </div>
                 </div>
@@ -146,14 +152,17 @@ function loadBlogs() {
 }
 
 // ✅ Like a blog post
-function likePost(index) {
+function likePost(blogId) {
     try {
-        const savedProfile = JSON.parse(localStorage.getItem("userProfile"));
         let blogs = JSON.parse(localStorage.getItem("blogs")) || {};
 
-        if (!savedProfile || !blogs[savedProfile.username]) return;
+        Object.keys(blogs).forEach(user => {
+            blogs[user] = blogs[user].map(blog => {
+                if (blog.id === blogId) blog.likes += 1;
+                return blog;
+            });
+        });
 
-        blogs[savedProfile.username][index].likes += 1;
         localStorage.setItem("blogs", JSON.stringify(blogs));
         loadBlogs();
     } catch (error) {
@@ -162,19 +171,22 @@ function likePost(index) {
 }
 
 // ✅ Comment on a blog post
-function commentOnPost(index) {
+function commentOnPost(blogId) {
     try {
-        const savedProfile = JSON.parse(localStorage.getItem("userProfile"));
+        const comment = prompt("Enter your comment:");
+        if (!comment) return;
+
         let blogs = JSON.parse(localStorage.getItem("blogs")) || {};
 
-        if (!savedProfile || !blogs[savedProfile.username]) return;
+        Object.keys(blogs).forEach(user => {
+            blogs[user] = blogs[user].map(blog => {
+                if (blog.id === blogId) blog.comments.push(comment);
+                return blog;
+            });
+        });
 
-        const comment = prompt("Enter your comment:");
-        if (comment) {
-            blogs[savedProfile.username][index].comments.push(comment);
-            localStorage.setItem("blogs", JSON.stringify(blogs));
-            loadBlogs();
-        }
+        localStorage.setItem("blogs", JSON.stringify(blogs));
+        loadBlogs();
     } catch (error) {
         console.error("Error commenting on post:", error);
     }
@@ -184,19 +196,13 @@ function commentOnPost(index) {
 function clearProfile() {
     const confirmation = confirm("Are you sure you want to clear your profile? This will also delete all your blogs.");
     if (confirmation) {
-        const savedProfile = JSON.parse(localStorage.getItem("userProfile"));
-        let blogs = JSON.parse(localStorage.getItem("blogs")) || {};
-
-        if (savedProfile && blogs[savedProfile.username]) {
-            delete blogs[savedProfile.username]; // Remove user blogs
-        }
-
         localStorage.removeItem("userProfile");
         localStorage.removeItem("profilePic");
-        localStorage.setItem("blogs", JSON.stringify(blogs));
+        localStorage.removeItem("blogs");
 
         alert("Profile and blogs cleared!");
         loadProfile();
         loadBlogs();
     }
 }
+
