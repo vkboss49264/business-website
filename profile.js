@@ -31,27 +31,34 @@ function loadProfile() {
         const savedProfile = JSON.parse(localStorage.getItem("userProfile"));
 
         if (savedProfile) {
-            document.getElementById("username").value = savedProfile.username || "";
-            document.getElementById("bio").value = savedProfile.bio || "";
-            document.getElementById("profile-pic").src = savedProfile.profilePic || "default-avatar.png";
+            if (document.getElementById("username")) {
+                document.getElementById("username").value = savedProfile.username || "";
+            }
+            if (document.getElementById("bio")) {
+                document.getElementById("bio").value = savedProfile.bio || "";
+            }
+            if (document.getElementById("profile-pic")) {
+                document.getElementById("profile-pic").src = savedProfile.profilePic || "default-avatar.png";
+            }
         }
     } catch (error) {
         console.error("Error loading profile:", error);
     }
 }
 
-// ✅ Profile Picture Upload with Compression
-document.getElementById("upload-pic").addEventListener("change", function () {
+// ✅ Profile Picture Upload
+document.getElementById("upload-pic")?.addEventListener("change", function () {
     const file = this.files[0];
 
     if (file) {
         const reader = new FileReader();
         reader.onload = function (e) {
             compressImage(e.target.result, 0.5, (compressedImage) => {
-                document.getElementById("profile-pic").src = compressedImage;
+                if (document.getElementById("profile-pic")) {
+                    document.getElementById("profile-pic").src = compressedImage;
+                }
                 localStorage.setItem("profilePic", compressedImage);
 
-                // Update user profile picture
                 let userProfile = JSON.parse(localStorage.getItem("userProfile")) || {};
                 userProfile.profilePic = compressedImage;
                 localStorage.setItem("userProfile", JSON.stringify(userProfile));
@@ -61,7 +68,7 @@ document.getElementById("upload-pic").addEventListener("change", function () {
     }
 });
 
-// ✅ Function to Compress Image
+// ✅ Compress Image
 function compressImage(base64Str, quality, callback) {
     const img = new Image();
     img.src = base64Str;
@@ -78,10 +85,10 @@ function compressImage(base64Str, quality, callback) {
     };
 }
 
-// ✅ Post a new blog (Linked to Profile)
+// ✅ Post a Blog
 function postBlog() {
     try {
-        const blogContent = document.getElementById("blog-content").value.trim();
+        const blogContent = document.getElementById("blog-content")?.value.trim();
         const savedProfile = JSON.parse(localStorage.getItem("userProfile"));
 
         if (!savedProfile || !savedProfile.username) {
@@ -95,7 +102,7 @@ function postBlog() {
         }
 
         const blogPost = {
-            id: Date.now(), // Unique ID for blog
+            id: Date.now(), 
             author: savedProfile.username,
             profilePic: savedProfile.profilePic || "default-avatar.png",
             content: blogContent,
@@ -105,9 +112,7 @@ function postBlog() {
         };
 
         let blogs = JSON.parse(localStorage.getItem("blogs")) || {};
-        if (!blogs[savedProfile.username]) {
-            blogs[savedProfile.username] = [];
-        }
+        blogs[savedProfile.username] = blogs[savedProfile.username] || [];
         blogs[savedProfile.username].push(blogPost);
         localStorage.setItem("blogs", JSON.stringify(blogs));
 
@@ -119,19 +124,26 @@ function postBlog() {
     }
 }
 
-// ✅ Load Blogs (Show All Users' Blogs)
+// ✅ Load Blogs
 function loadBlogs() {
     try {
         const blogsContainer = document.getElementById("blogs-container");
+        if (!blogsContainer) return;
+
         blogsContainer.innerHTML = "";
+        const savedProfile = JSON.parse(localStorage.getItem("userProfile"));
+
+        if (!savedProfile) return;
+
         const blogs = JSON.parse(localStorage.getItem("blogs")) || {};
+        let userBlogs = blogs[savedProfile.username] || [];
 
-        let allBlogs = [];
-        Object.values(blogs).forEach(userBlogs => allBlogs.push(...userBlogs));
+        if (!Array.isArray(userBlogs)) {
+            console.error("Invalid blogs data:", userBlogs);
+            userBlogs = [];
+        }
 
-        allBlogs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)); // Show latest first
-
-        allBlogs.forEach((blog) => {
+        userBlogs.forEach((blog) => {
             const blogHTML = `
                 <div class="blog-post">
                     <img src="${blog.profilePic}" class="blog-author-pic">
@@ -151,7 +163,7 @@ function loadBlogs() {
     }
 }
 
-// ✅ Like a blog post
+// ✅ Like a Blog
 function likePost(blogId) {
     try {
         let blogs = JSON.parse(localStorage.getItem("blogs")) || {};
@@ -170,7 +182,7 @@ function likePost(blogId) {
     }
 }
 
-// ✅ Comment on a blog post
+// ✅ Comment on a Blog
 function commentOnPost(blogId) {
     try {
         const comment = prompt("Enter your comment:");
@@ -180,7 +192,10 @@ function commentOnPost(blogId) {
 
         Object.keys(blogs).forEach(user => {
             blogs[user] = blogs[user].map(blog => {
-                if (blog.id === blogId) blog.comments.push(comment);
+                if (blog.id === blogId) {
+                    blog.comments = blog.comments || [];
+                    blog.comments.push(comment);
+                }
                 return blog;
             });
         });
@@ -192,7 +207,7 @@ function commentOnPost(blogId) {
     }
 }
 
-// ✅ Clear Profile (Also Clears Blogs)
+// ✅ Clear Profile
 function clearProfile() {
     const confirmation = confirm("Are you sure you want to clear your profile? This will also delete all your blogs.");
     if (confirmation) {
@@ -205,4 +220,3 @@ function clearProfile() {
         loadBlogs();
     }
 }
-
