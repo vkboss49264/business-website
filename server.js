@@ -1,56 +1,65 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const multer = require("multer");
 const cors = require("cors");
-const path = require("path");
+const bodyParser = require("body-parser");
 
 const app = express();
+const PORT = 6000; // Changed port to 6000
+
+// Middleware
 app.use(cors());
-app.use(express.json());
-app.use(express.static("uploads"));  // Serve uploaded files
+app.use(bodyParser.json());
+app.use(express.static("uploads"));
 
-// MongoDB Connection
-mongoose.connect("mongodb://localhost:27017/blogDB", { useNewUrlParser: true, useUnifiedTopology: true });
+// Connect to MongoDB
+mongoose.connect("mongodb://127.0.0.1:27017/blogsDB", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+.then(() => console.log("✅ MongoDB connected"))
+.catch((err) => console.error("❌ MongoDB connection error:", err));
 
-// Define Blog Schema
-const blogSchema = new mongoose.Schema({
+// Blog Schema
+const BlogSchema = new mongoose.Schema({
+    author: String,
     content: String,
-    mediaUrl: String,  // Store image/video URL
-    createdAt: { type: Date, default: Date.now }
+    mediaUrl: String,
+    createdAt: { type: Date, default: Date.now },
 });
 
-const Blog = mongoose.model("Blog", blogSchema);
+const Blog = mongoose.model("Blog", BlogSchema);
 
-// Set up file storage using multer
-const storage = multer.diskStorage({
-    destination: "uploads/",
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname));
-    },
-});
-
-const upload = multer({ storage });
-
-// Route to upload blogs
-app.post("/api/blogs", upload.single("media"), async (req, res) => {
+// ✅ API to Post a Blog
+app.post("/api/blogs", async (req, res) => {
     try {
-        const { content } = req.body;
-        const mediaUrl = req.file ? `/uploads/${req.file.filename}` : null;
+        const { author, content, mediaUrl } = req.body;
 
-        const newBlog = new Blog({ content, mediaUrl });
+        if (!author || !content) {
+            return res.status(400).json({ error: "Author and content are required!" });
+        }
+
+        const newBlog = new Blog({ author, content, mediaUrl });
         await newBlog.save();
 
-        res.json({ message: "Blog posted successfully!", blog: newBlog });
+        res.status(201).json({ message: "✅ Blog posted successfully!" });
     } catch (error) {
-        res.status(500).json({ message: "Error posting blog", error });
+        console.error("Error posting blog:", error);
+        res.status(500).json({ error: "❌ Error posting blog" });
     }
 });
 
-// Route to get all blogs
+// ✅ API to Get All Blogs
 app.get("/api/blogs", async (req, res) => {
-    const blogs = await Blog.find().sort({ createdAt: -1 });
-    res.json(blogs);
+    try {
+        const blogs = await Blog.find().sort({ createdAt: -1 }); // Latest first
+        res.json(blogs);
+    } catch (error) {
+        console.error("Error fetching blogs:", error);
+        res.status(500).json({ error: "❌ Error fetching blogs" });
+    }
 });
 
-// Start Server
-app.listen(5000, () => console.log("Server running on port 5000"));
+// ✅ Start Server
+app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+});
