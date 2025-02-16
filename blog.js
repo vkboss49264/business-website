@@ -16,6 +16,7 @@ async function submitBlog() {
             return;
         }
 
+        // ✅ Get user profile from localStorage
         const savedProfile = JSON.parse(localStorage.getItem("userProfile"));
         if (!savedProfile || !savedProfile.username) {
             alert("⚠️ Please complete your profile before posting.");
@@ -24,7 +25,7 @@ async function submitBlog() {
 
         let mediaUrl = "";
 
-        // ✅ If media file is uploaded, convert it to Base64
+        // ✅ Convert uploaded media file to Base64 (optional)
         if (fileInput) {
             const reader = new FileReader();
             reader.onload = async function (event) {
@@ -48,6 +49,7 @@ async function saveBlogPost(title, content, mediaUrl, profile) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 author: profile.username,
+                title: title,
                 content: content,
                 mediaUrl: mediaUrl,
             }),
@@ -88,8 +90,8 @@ async function loadBlogs() {
         blogs.forEach(blog => {
             const blogHTML = `
                 <div class="blog-post">
-                    <h3>${blog.author}</h3>
-                    <p>${new Date(blog.createdAt).toLocaleString()}</p>
+                    <h3>${blog.title}</h3>
+                    <p><strong>${blog.author}</strong> - ${new Date(blog.createdAt).toLocaleString()}</p>
                     <p>${blog.content}</p>
                     ${blog.mediaUrl ? `<img src="${blog.mediaUrl}" class="blog-media">` : ""}
                 </div>
@@ -100,4 +102,5 @@ async function loadBlogs() {
         console.error("❌ Error loading blogs:", error);
     }
 }
+
 
