@@ -1,95 +1,135 @@
-// Load blogs when page loads
-document.addEventListener("DOMContentLoaded", loadBlogs);
+console.log("blog.js loaded successfully!");
+document.addEventListener("DOMContentLoaded", () => {
+    loadBlogs();
+});
 
-// Function to submit a new blog post
-async function submitBlog() {
-    const title = document.getElementById("blog-title").value;
-    const content = document.getElementById("blog-content").value;
-    const fileInput = document.getElementById("media-upload").files[0];
-
-    if (!title.trim() || !content.trim()) {
-        alert("Title and content are required.");
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("content", content);
-    if (fileInput) {
-        formData.append("media", fileInput);
-    }
-
+// ✅ Function to Submit a Blog
+function submitBlog() {
     try {
-        const response = await fetch("http://localhost:5000/api/blogs", {
-            method: "POST",
-            body: formData,
-        });
+        const title = document.getElementById("blog-title").value.trim();
+        const content = document.getElementById("blog-content").value.trim();
+        const fileInput = document.getElementById("media-upload").files[0];
 
-        const data = await response.json();
-        alert(data.message || "Blog posted successfully!");
-        loadBlogs(); // Refresh blogs after posting
+        if (!title || !content) {
+            alert("Title and content are required!");
+            return;
+        }
+
+        const savedProfile = JSON.parse(localStorage.getItem("userProfile"));
+        if (!savedProfile || !savedProfile.username) {
+            alert("Please complete your profile before posting.");
+            return;
+        }
+
+        // Read file if uploaded (convert to Base64 for preview)
+        let mediaUrl = "";
+        if (fileInput) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                mediaUrl = event.target.result;
+                saveBlogPost(title, content, mediaUrl, savedProfile);
+            };
+            reader.readAsDataURL(fileInput);
+        } else {
+            saveBlogPost(title, content, mediaUrl, savedProfile);
+        }
     } catch (error) {
         console.error("Error posting blog:", error);
     }
 }
-async function loadBlogs() {
+
+// ✅ Function to Save Blog in Local Storage
+function saveBlogPost(title, content, mediaUrl, profile) {
+    let blogs = JSON.parse(localStorage.getItem("blogs")) || [];
+
+    const newPost = {
+        id: Date.now(),
+        title: title,
+        content: content,
+        media: mediaUrl,
+        author: profile.username,
+        profilePic: profile.profilePic || "default-avatar.png",
+        timestamp: new Date().toLocaleString(),
+        likes: 0,
+        comments: []
+    };
+
+    blogs.push(newPost);
+    localStorage.setItem("blogs", JSON.stringify(blogs));
+
+    alert("Blog posted successfully!");
+    document.getElementById("blog-title").value = "";
+    document.getElementById("blog-content").value = "";
+    document.getElementById("media-upload").value = "";
+    loadBlogs(); // Reload blogs after posting
+}
+
+// ✅ Function to Load Blogs
+function loadBlogs() {
     try {
-        console.log("Fetching blogs...");
-        const response = await fetch("http://localhost:5000/api/blogs");
-        const blogs = await response.json();
-        console.log("Blogs fetched:", blogs); // Debugging line
-
         const postsContainer = document.getElementById("posts-container");
-        postsContainer.innerHTML = "";
+        if (!postsContainer) return;
 
-        blogs.forEach((blog) => {
-            const postDiv = document.createElement("div");
-            postDiv.classList.add("blog-post");
+        postsContainer.innerHTML = ""; // Clear previous posts
 
-            postDiv.innerHTML = `
-                <h3>${blog.title || "Untitled"}</h3>
-                <p>${blog.content}</p>
-                ${blog.mediaUrl ? `<img src="${blog.mediaUrl}" style="max-width: 100%;"/>` : ""}
-                <p><small>Posted on: ${new Date(blog.createdAt).toLocaleString()}</small></p>
+        let blogs = JSON.parse(localStorage.getItem("blogs")) || [];
+
+        if (blogs.length === 0) {
+            postsContainer.innerHTML = "<p>No blogs yet. Start writing!</p>";
+            return;
+        }
+
+        blogs.forEach(blog => {
+            const blogHTML = `
+                <div class="blog-post">
+                    <img src="${blog.profilePic}" class="blog-author-pic">
+                    <h3>${blog.title}</h3>
+                    <p><strong>${blog.author}</strong> - ${blog.timestamp}</p>
+                    <p>${blog.content}</p>
+                    ${blog.media ? `<img src="${blog.media}" class="blog-media">` : ""}
+                    <button onclick="likePost(${blog.id})">❤️ Like (${blog.likes})</button>
+                    <button onclick="commentOnPost(${blog.id})">💬 Comment</button>
+                    <div id="comments-${blog.id}">
+                        ${blog.comments.map(c => `<p>🗨️ ${c}</p>`).join("")}
+                    </div>
+                </div>
             `;
-
-            postsContainer.appendChild(postDiv);
+            postsContainer.innerHTML += blogHTML;
         });
     } catch (error) {
         console.error("Error loading blogs:", error);
     }
 }
 
+// ✅ Function to Like a Blog
+function likePost(blogId) {
+    let blogs = JSON.parse(localStorage.getItem("blogs")) || [];
 
-// Function to like a blog post
-async function likeBlog(id) {
-    try {
-        await fetch(`http://localhost:5000/api/blogs/${id}/like`, {
-            method: "POST",
-        });
+    blogs = blogs.map(blog => {
+        if (blog.id === blogId) blog.likes += 1;
+        return blog;
+    });
 
-        loadBlogs(); // Refresh after liking
-    } catch (error) {
-        console.error("Error liking blog:", error);
-    }
+    localStorage.setItem("blogs", JSON.stringify(blogs));
+    loadBlogs();
 }
 
-// Function to add a comment
-async function addComment(id) {
-    const commentInput = document.getElementById(`comment-${id}`);
-    let comment = commentInput.value.trim();
-    if (comment === "") return;
+// ✅ Function to Comment on a Blog
+function commentOnPost(blogId) {
+    const comment = prompt("Enter your comment:");
+    if (!comment) return;
 
-    try {
-        await fetch(`http://localhost:5000/api/blogs/${id}/comment`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ comment }),
-        });
+    let blogs = JSON.parse(localStorage.getItem("blogs")) || [];
 
-        commentInput.value = "";
-        loadBlogs();
-    } catch (error) {
-        console.error("Error adding comment:", error);
-    }
+    blogs = blogs.map(blog => {
+        if (blog.id === blogId) {
+            blog.comments = blog.comments || [];
+            blog.comments.push(comment);
+        }
+        return blog;
+    });
+
+    localStorage.setItem("blogs", JSON.stringify(blogs));
+    loadBlogs();
 }
+
