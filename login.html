@@ -3,19 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Login | Vishal Kumar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Animated Background */
+        body {
+            background: linear-gradient(-45deg, #1e3a8a, #4a148c, #ff6f61, #ff9800);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Glassmorphism Login Box */
+        .login-box {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 50px;
+            width: 420px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: slideIn 1s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .login-box:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Slide-in Animation */
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Input Fields */
+        input {
+            width: 100%;
+            padding: 14px;
+            margin: 12px 0;
+            border: none;
+            border-radius: 12px;
+            outline: none;
+            font-size: 16px;
+            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.3);
+            color: #fff;
+        }
+        
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        input:focus {
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Gradient Button */
+        .gradient-btn {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            padding: 14px;
+            width: 100%;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        
+        .gradient-btn:hover {
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.5);
+        }
+
+        /* Additional Links */
+        .extra-links {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .extra-links a {
+            color: #ffeb3b;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .extra-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Social Login */
+        .social-login {
+            margin-top: 20px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+    </style>
 </head>
 <body>
-    <div class="auth-container">
-        <h2>Login</h2>
-        <form id="loginForm">
+    <div class="login-box">
+        <h2 class="text-3xl font-bold text-white mb-4">Welcome Back 👋</h2>
+        <p class="text-white mb-6">Login to access your account and continue exploring.</p>
+        
+        <form>
             <input type="email" placeholder="Enter Email" required>
             <input type="password" placeholder="Enter Password" required>
-            <button type="submit">Login</button>
-            <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+            <button type="submit" class="gradient-btn">Login</button>
         </form>
+
+        <div class="extra-links">
+            <a href="#">Forgot Password?</a> | <a href="signup.html">Sign Up</a>
+        </div>
+
+        <div class="social-login">
+            <p class="text-white mt-6">Or login with</p>
+            <div class="social-btn">
+                <img src="https://img.icons8.com/color/30/google-logo.png" alt="Google"> Continue with Google
+            </div>
+        </div>
     </div>
-    <script src="auth.js"></script>
 </body>
 </html>
