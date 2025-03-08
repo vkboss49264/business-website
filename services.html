@@ -3,52 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services</title>
-    <link rel="stylesheet" href="style.css">
-    
-        <title>Our Services | Career Support & Job Opportunities</title>
-        <meta name="description" content="Explore our services, including job listings, resume building, interview preparation, and career counseling for transgender and underprivileged individuals.">
-        <meta name="keywords" content="career support, job search, interview tips, resume building, LGBTQ+ job help">
-        <meta name="robots" content="index, follow">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    
+    <title>Our Services</title>
+    <style>
+        /* Gradient Background Animation */
+        @keyframes gradientBG {
+            0% { background: linear-gradient(45deg, #ff4e50, #fc913a, #f9d423); }
+            50% { background: linear-gradient(45deg, #30cfd0, #330867, #ff4e50); }
+            100% { background: linear-gradient(45deg, #ff4e50, #fc913a, #f9d423); }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-size: 300% 300%;
+            animation: gradientBG 10s infinite alternate ease-in-out;
+            color: white;
+            text-align: center;
+        }
+
+        .navbar {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover {
+            color: #ffdd57;
+        }
+
+        .hero {
+            padding: 80px 20px;
+            font-size: 22px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .hero h2 {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .services-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px 20px;
+        }
+
+        .service-box {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            transition: transform 0.3s ease-in-out;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .service-box:hover {
+            transform: scale(1.05);
+        }
+
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Our Services</h1>
-        <nav>
-            <ul>
-          
+        <nav class="navbar">
+            <h1>Our Services</h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
-        <h2>What We Offer</h2>
-        <p>Details about our services...</p>
-        <section id="services">
-            <h1>Our Services</h1>
-            <div class="service-container">
-                <div class="service">
-                    <h2>Job Listings</h2>
-                    <p>We provide job opportunities for transgender people and the underprivileged.</p>
-                </div>
-                <div class="service">
-                    <h2>Blog & Story Sharing</h2>
-                    <p>Users can write and share their personal experiences, inspiring others.</p>
-                </div>
-                <div class="service">
-                    <h2>Networking & Support</h2>
-                    <p>Connect with like-minded individuals and gain community support.</p>
-                </div>
-            </div>
-        </section>
-        
-    </main>
+    <section class="hero">
+        <h2>Explore Our Wide Range of Services</h2>
+        <p>We provide career support, job opportunities, resume building, and professional networking.</p>
+    </section>
+
+    <section class="services-container">
+        <div class="service-box">
+            <h3>Job Listings</h3>
+            <p>Find the latest job opportunities that match your skills and interests.</p>
+        </div>
+        <div class="service-box">
+            <h3>Resume Building</h3>
+            <p>Create a professional resume with expert guidance to stand out in the job market.</p>
+        </div>
+        <div class="service-box">
+            <h3>Interview Preparation</h3>
+            <p>Get tips and mock interviews to boost your confidence for job interviews.</p>
+        </div>
+        <div class="service-box">
+            <h3>Skill Development</h3>
+            <p>Enroll in skill-enhancing courses to improve your qualifications and career growth.</p>
+        </div>
+        <div class="service-box">
+            <h3>Networking & Support</h3>
+            <p>Connect with professionals and build a strong career network.</p>
+        </div>
+    </section>
 
     <footer>
-        <p>2025 My Website</p>
+        <p>&copy; 2025 Job Portal | All Rights Reserved</p>
     </footer>
 </body>
 </html>
+
