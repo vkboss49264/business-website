@@ -3,31 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
+    <title>Our Success Stories & Achievements | Portfolio</title>
+    
+    <meta name="description" content="See our success stories and achievements in helping transgender and underprivileged individuals find jobs and grow their careers.">
+    <meta name="keywords" content="career success, job placement, employment success, work portfolio">
+    <meta name="robots" content="index, follow">
+    
     <link rel="stylesheet" href="style.css">
-   
-        <title>Our Success Stories & Achievements | Portfolio</title>
-        <meta name="description" content="See our success stories and achievements in helping transgender and underprivileged individuals find jobs and grow their careers.">
-        <meta name="keywords" content="career success, job placement, employment success, work portfolio">
-        <meta name="robots" content="index, follow">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    
+    <style>
+        /* Gradient Background */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Navigation */
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            transition: color 0.3s ease-in-out;
+        }
+
+        nav ul li a:hover {
+            color: #ffdd57;
+        }
+
+        /* Main Content */
+        main {
+            padding: 50px 20px;
+        }
+
+        h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        /* Portfolio Section */
+        .portfolio-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .portfolio-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 350px;
+            text-align: center;
+            box-shadow: 0 6px 12px rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+        }
+
+        .portfolio-item:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.3);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            border-radius: 15px;
+        }
+
+        .portfolio-item h2 {
+            margin: 15px 0;
+            font-size: 24px;
+        }
+
+        /* Portfolio Button */
+        .portfolio-btn {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 15px 30px;
+            font-size: 20px;
+            background: linear-gradient(90deg, #ff4e50, #fc913a);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .portfolio-btn:hover {
+            transform: scale(1.1);
+            background: linear-gradient(90deg, #fc913a, #ff4e50);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0px -4px 10px rgba(255, 255, 255, 0.2);
+        }
+
+        footer p {
+            margin: 0;
+            color: white;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Our Portfolio</h1>
+        <h1>Our Success Stories</h1>
         <nav>
             <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="home.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact .html">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <h2>Our Work</h2>
-        <p>Showcase of our projects...</p>
+        <h2>Inspiring Journeys</h2>
+        <p>See how we've helped individuals transform their careers.</p>
+
         <section id="portfolio">
-            <h1>Success Stories</h1>
             <div class="portfolio-container">
                 <div class="portfolio-item">
                     <img src="success1.jpg" alt="Success Story 1">
@@ -41,11 +175,13 @@
                 </div>
             </div>
         </section>
-        
+
+        <!-- Portfolio Button -->
+        <a href="https://vkboss49264.github.io/My-portfolio/" class="portfolio-btn">View My Portfolio</a>
     </main>
 
     <footer>
-        <p>2025 My Website</p>
+        <p>© 2025 Vishal Kumar | All Rights Reserved</p>
     </footer>
 </body>
 </html>
