@@ -3,20 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Sign Up | Vishal Kumar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Animated Gradient Background */
+        body {
+            background: linear-gradient(-45deg, #1e3a8a, #4a148c, #ff6f61, #ff9800);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Bigger Glassmorphism Sign-Up Box */
+        .signup-box {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 50px;
+            width: 550px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: slideIn 1s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .signup-box:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Slide-in Animation */
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Spacing for Input Fields */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            outline: none;
+            font-size: 16px;
+            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.3);
+            color: #fff;
+        }
+        
+        input::placeholder, select {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        input:focus, select:focus {
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Gradient Button */
+        .gradient-btn {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            padding: 15px;
+            width: 100%;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+        
+        .gradient-btn:hover {
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.5);
+        }
+
+        /* Additional Links */
+        .extra-links {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .extra-links a {
+            color: #ffeb3b;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .extra-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Social Sign-Up */
+        .social-signup {
+            margin-top: 20px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+    </style>
 </head>
 <body>
-    <div class="auth-container">
-        <h2>Sign Up</h2>
+    <div class="signup-box">
+        <h2 class="text-3xl font-bold text-white mb-3">Create Your Account 🚀</h2>
+        <p class="text-white mb-5">Join us today and explore endless possibilities!</p>
+
         <form id="signupForm">
-            <input type="text" placeholder="Full Name" required>
-            <input type="email" placeholder="Enter Email" required>
-            <input type="password" placeholder="Create Password" required>
-            <button type="submit">Sign Up</button>
-            <p>Already have an account? <a href="login.html">Login</a></p>
+            <div class="form-group">
+                <input type="text" placeholder="Full Name" required>
+                <input type="text" placeholder="Username" required>
+            </div>
+
+            <div class="form-group">
+                <input type="email" placeholder="Enter Email" required>
+                <input type="tel" placeholder="Phone Number" required>
+            </div>
+
+            <div class="form-group">
+                <input type="password" placeholder="Create Password" required>
+                <input type="password" placeholder="Confirm Password" required>
+            </div>
+
+            <div class="form-group">
+                <select required>
+                    <option value="" disabled selected>Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <input type="date" required>
+            </div>
+
+            <button type="submit" class="gradient-btn">Sign Up</button>
         </form>
+
+        <div class="extra-links">
+            <p>Already have an account? <a href="login.html">Login</a></p>
+        </div>
+
+        <div class="social-signup">
+            <p class="text-white mt-6">Or sign up with</p>
+            <div class="social-btn">
+                <img src="https://img.icons8.com/color/30/google-logo.png" alt="Google"> Continue with Google
+            </div>
+        </div>
     </div>
-    <script src="auth.js"></script>
 </body>
 </html>
