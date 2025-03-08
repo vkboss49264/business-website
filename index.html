@@ -59,6 +59,38 @@
             color: #ffdd57;
         }
 
+        /* Responsive Sidebar for Mobile */
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: white;
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                background: rgba(0, 0, 0, 0.9);
+                width: 100%;
+                padding: 10px;
+                text-align: left;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+
         /* Hero Section */
         .hero {
             padding: 100px 20px;
@@ -92,7 +124,7 @@
             padding: 20px;
             width: 90%;
             max-width: 600px;
-            background: rgba(0, 0, 0, 0.5); /* Semi-transparent */
+            background: rgba(0, 0, 0, 0.5);
             border-radius: 10px;
             backdrop-filter: blur(5px);
             box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
@@ -112,61 +144,6 @@
 
         input::placeholder {
             color: rgba(255, 255, 255, 0.7);
-        }
-
-        /* Testimonials */
-        #testimonials {
-            margin-top: 40px;
-        }
-
-        .testimonial-slider {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            overflow-x: auto;
-            padding: 10px;
-            scroll-behavior: smooth;
-        }
-
-        .testimonial-slider blockquote {
-            background: rgba(0, 0, 0, 0.4);
-            padding: 15px;
-            border-radius: 10px;
-            max-width: 300px;
-            text-align: center;
-            font-style: italic;
-            transition: transform 0.3s ease-in-out;
-            color: white;
-        }
-
-        .testimonial-slider blockquote:hover {
-            transform: scale(1.05);
-        }
-
-        /* Latest Blogs */
-        #latest-blogs {
-            margin: 40px auto;
-            max-width: 600px;
-            padding: 20px;
-        }
-
-        .blog-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .blog-list article {
-            background: rgba(0, 0, 0, 0.4);
-            padding: 15px;
-            border-radius: 10px;
-            backdrop-filter: blur(5px);
-            transition: transform 0.3s ease-in-out;
-            color: white;
-        }
-
-        .blog-list article:hover {
-            transform: scale(1.05);
         }
 
         /* Footer */
@@ -211,13 +188,14 @@
     <header>
         <nav class="navbar">
             <h1>Job Portal</h1>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
             <ul class="nav-links">
                 <li><a href="about.html">About</a></li>
                 <li><a href="services.html">Services</a></li>
                 <li><a href="portfolio.html">Portfolio</a></li>
                 <li><a href="testimonials.html">Testimonials</a></li>
                 <li><a href="blog.html">Blog</a></li>
-                <li><a href="contact .html">Contact</a></li>
+                <li><a href="contact.html">Contact</a></li>
                 <li><a href="login.html">Login</a></li>
                 <li><a href="signup.html">Sign Up</a></li>
                 <li><a href="profile.html">Profile</a></li>
@@ -246,5 +224,12 @@
         </p>
         <button id="backToTop">Back to Top</button>
     </footer>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        }
+    </script>
 </body>
-</html> 
+</html>
+
