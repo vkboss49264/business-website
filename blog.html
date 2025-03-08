@@ -3,44 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Blog | Job Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(45deg, #ff00ff, #ff7300, #00ff99);
+            animation: gradientBG 10s infinite alternate ease-in-out;
+            color: white;
+            text-align: center;
+        }
+        
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        #blog-form {
+            background: rgba(255, 255, 255, 0.15);
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            backdrop-filter: blur(10px);
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(90deg, #ff0000, #ff7300);
+            color: white;
+        }
+        
+        .blog-post {
+            background: rgba(255, 255, 255, 0.2);
+            margin: 20px auto;
+            padding: 15px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+        }
+        .like-btn, .comment-btn {
+            cursor: pointer;
+            margin: 5px;
+            font-size: 18px;
+        }
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .comments-section {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Blog</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="profile.html">Profile</a></li>
-            </ul>
-        </nav>
-    </header>
+    <header>🌟 Blog - Share Your Thoughts 🌟</header>
 
-    <main>
-        <!-- Blog Form -->
-        <section id="blog-form">
-            <h2>Write a New Blog</h2>
+    <section id="blog-form">
+        <h2>📝 Write a New Blog</h2>
+        <input type="file" id="profile-pic-input" accept="image/*">
+        <input type="text" id="blog-title" placeholder="Enter blog title" required>
+        <textarea id="blog-content" placeholder="Write your blog here..." required></textarea>
+        <button onclick="submitBlog()">🚀 Post Blog</button>
+    </section>
+
+    <section id="blog-posts">
+        <h2>📢 Latest Blogs</h2>
+        <div id="posts-container"></div>
+    </section>
+
+    <script>
+        function submitBlog() {
+            const title = document.getElementById('blog-title').value;
+            const content = document.getElementById('blog-content').value;
+            const fileInput = document.getElementById('profile-pic-input');
             
-            <!-- Title Input -->
-            <input type="text" id="blog-title" placeholder="Enter blog title" required>
-            
-            <!-- Content Textarea -->
-            <textarea id="blog-content" placeholder="Write your blog here..." required></textarea>
+            if (!title || !content) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            let profilePicURL = "default.png";
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                profilePicURL = URL.createObjectURL(file);
+            }
+
+            const postContainer = document.getElementById('posts-container');
+            const post = document.createElement('div');
+            post.classList.add('blog-post');
+            post.innerHTML = `
+                <img src="${profilePicURL}" class="profile-pic">
+                <h3>${title}</h3>
+                <p>${content}</p>
+                <span class="like-btn" onclick="toggleLike(this)">❤️ 0</span>
+                <span class="comment-btn" onclick="toggleComments(this)">💬</span>
+                <div class="comments-section">
+                    <input type="text" placeholder="Write a comment..." class="comment-input">
+                    <button onclick="addComment(this)">Post</button>
+                    <ul class="comments-list"></ul>
+                </div>
+            `;
+            postContainer.prepend(post);
+            document.getElementById('blog-title').value = '';
+            document.getElementById('blog-content').value = '';
+        }
         
-            <!-- File Input for Images/Videos -->
-            <input type="file" id="media-upload" accept="image/*,video/*">
-            
-            <button onclick="submitBlog()">Post Blog</button>
-        </section>
-
-        <!-- Blog Posts -->
-        <section id="blog-posts">
-            <h2>Latest Blogs</h2>
-            <div id="posts-container"></div>
-        </section>
-    </main>
-
-    <script src="blog.js"></script>
+        function toggleLike(btn) {
+            let likes = parseInt(btn.textContent.match(/\d+/)[0]);
+            if (btn.classList.contains('liked')) {
+                likes--;
+                btn.classList.remove('liked');
+            } else {
+                likes++;
+                btn.classList.add('liked');
+            }
+            btn.textContent = `❤️ ${likes}`;
+        }
+        
+        function toggleComments(btn) {
+            let commentSection = btn.nextElementSibling;
+            commentSection.style.display = commentSection.style.display === 'none' ? 'block' : 'none';
+        }
+        
+        function addComment(btn) {
+            let input = btn.previousElementSibling;
+            let commentText = input.value;
+            if (!commentText) return;
+            let commentList = btn.nextElementSibling;
+            let li = document.createElement('li');
+            li.textContent = commentText;
+            commentList.appendChild(li);
+            input.value = '';
+        }
+    </script>
 </body>
 </html>
+
