@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://vkboss49264.github.io/business-website/sitemap.xml
