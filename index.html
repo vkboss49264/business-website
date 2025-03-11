@@ -254,9 +254,16 @@
     </section>
 
     <script>
-        function toggleMenu() {
-            document.querySelector(".nav-links").classList.toggle("show");
+   function toggleMenu() {
+    const navLinks = document.querySelector(".nav-links");
+    navLinks.classList.toggle("show");
+    document.addEventListener("click", (e) => {
+        if (!navLinks.contains(e.target) && !e.target.classList.contains("menu-icon")) {
+            navLinks.classList.remove("show");
         }
+    });
+}
+
     </script>
     <script type="application/ld+json">
 {
