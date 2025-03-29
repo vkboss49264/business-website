@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Jobs | CareerConnect</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Browse thousands of job opportunities in tech, design, business and more. Find your dream job today.">
+    <meta name="keywords" content="jobs, employment, careers, job search, tech jobs, remote jobs">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        primaryDark: '#1d4ed8',
+                        secondary: '#f59e0b',
+                        dark: '#1e293b',
+                        light: '#f8fafc',
+                        success: '#10b981',
+                        danger: '#ef4444',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .active-filter {
+            background-color: rgba(37, 99, 235, 0.2);
+            border-color: #2563eb;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gradient-to-br from-blue-900 to-purple-900 text-white min-h-screen flex flex-col">
+    <!-- Navigation -->
+    <nav class="glass mx-4 mt-4 rounded-xl p-4 flex justify-between items-center">
+        <a href="index.html" class="text-2xl font-bold flex items-center">
+            <i class="fas fa-briefcase mr-2 text-secondary"></i>
+            <span>CareerConnect</span>
+        </a>
+        
+        <div class="hidden lg:flex space-x-8">
+            <a href="jobs.html" class="text-secondary font-medium">Browse Jobs</a>
+            <a href="employers.html" class="hover:text-secondary transition">For Employers</a>
+            <a href="about.html" class="hover:text-secondary transition">About</a>
+            <a href="contact.html" class="hover:text-secondary transition">Contact</a>
+        </div>
+        
+        <div class="hidden lg:flex space-x-4">
+            <a href="login.html" class="px-4 py-2 rounded-lg hover:bg-white hover:bg-opacity-10 transition">Login</a>
+            <a href="register.html" class="bg-secondary text-dark px-4 py-2 rounded-lg hover:bg-opacity-90 transition">Register</a>
+        </div>
+        
+        <button id="menu-toggle" class="lg:hidden text-2xl focus:outline-none">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden glass mx-4 mt-2 rounded-xl p-4 lg:hidden">
+        <a href="jobs.html" class="block py-2 text-secondary font-medium">Browse Jobs</a>
+        <a href="employers.html" class="block py-2 hover:text-secondary transition">For Employers</a>
+        <a href="about.html" class="block py-2 hover:text-secondary transition">About</a>
+        <a href="contact.html" class="block py-2 hover:text-secondary transition">Contact</a>
+        <div class="mt-4 pt-4 border-t border-white border-opacity-20">
+            <a href="login.html" class="block py-2 text-center hover:text-secondary transition">Login</a>
+            <a href="register.html" class="block mt-2 bg-secondary text-dark py-2 text-center rounded-lg hover:bg-opacity-90 transition">Register</a>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-12">
+        <div class="max-w-7xl mx-auto">
+            <!-- Page Header -->
+            <div class="text-center mb-12 animate-fade-in">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Find Your Dream Job</h1>
+                <p class="text-xl opacity-90 max-w-2xl mx-auto">Browse thousands of opportunities from top companies</p>
+            </div>
+            
+            <!-- Search and Filters -->
+            <div class="glass p-6 rounded-xl mb-8 animate-fade-in" style="animation-delay: 0.2s;">
+                <div class="flex flex-col md:flex-row gap-4 mb-6">
+                    <div class="flex-1 relative">
+                        <input type="text" placeholder="Job title, keywords, or company" 
+                               class="w-full px-4 py-3 pl-10 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                        <i class="fas fa-search absolute left-3 top-3.5 opacity-80"></i>
+                    </div>
+                    <div class="flex-1 relative">
+                        <input type="text" placeholder="Location" 
+                               class="w-full px-4 py-3 pl-10 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                        <i class="fas fa-map-marker-alt absolute left-3 top-3.5 opacity-80"></i>
+                    </div>
+                    <button class="bg-secondary text-dark font-bold px-6 py-3 rounded-lg hover:bg-opacity-90 transition">
+                        Search Jobs
+                    </button>
+                </div>
+                
+                <div class="flex flex-wrap gap-2">
+                    <button class="filter-btn px-3 py-1 rounded-full border border-white border-opacity-20 hover:bg-white hover:bg-opacity-10 transition" data-filter="all">
+                        All Jobs
+                    </button>
+                    <button class="filter-btn px-3 py-1 rounded-full border border-white border-opacity-20 hover:bg-white hover:bg-opacity-10 transition" data-filter="remote">
+                        Remote
+                    </button>
+                    <button class="filter-btn px-3 py-1 rounded-full border border-white border-opacity-20 hover:bg-white hover:bg-opacity-10 transition" data-filter="full-time">
+                        Full-time
+                    </button>
+                    <button class="filter-btn px-3 py-1 rounded-full border border-white border-opacity-20 hover:bg-white hover:bg-opacity-10 transition" data-filter="part-time">
+                        Part-time
+                    </button>
+                    <button class="filter-btn px-3 py-1 rounded-full border border-white border-opacity-20 hover:bg-white hover:bg-opacity-10 transition" data-filter="internship">
+                        Internship
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Job Listings -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in" style="animation-delay: 0.4s;">
+                <!-- Job Card 1 -->
+                <div class="job-card glass p-6 rounded-xl border-l-4 border-secondary transition duration-300" data-type="remote full-time">
+                    <div class="flex items-start mb-4">
+                        <img src="https://via.placeholder.com/60x60?text=TC" alt="Tech Corp" class="w-12 h-12 rounded-lg mr-4">
+                        <div>
+                            <h3 class="text-xl font-bold">Frontend Developer</h3>
+                            <p class="opacity-90">Tech Corp • Remote</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-white bg-opacity-10 rounded-full text-sm">React</span>
+                        <span class="px-2 py-1 bg-white bg-opacity-10 rounded-full text-sm">JavaScript</span>
+                        <span class="px-2 py-1 bg-white bg-opacity-10 rounded-full text-sm">CSS</span>
+                    </div>
+                    <p class="mb-4 line-clamp-3">We're looking for a skilled Frontend Developer to join our team and help build amazing user experiences using React and modern web technologies.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-secondary">₹8L - ₹12L</span>
+                        <a href="job-detail.html" class="px-4 py-2 rounded-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition">View Details</a>
+                    </div>
+                </div>
+                
+                <!-- Job Card 2 -->
+                <div class="job-card glass p-6 rounded-xl border-l-4 border-secondary transition duration-300" data-type="full-time">
+                    <div class="flex items-start mb-4">
+                        <img src="https://via.placeholder.com/60x60?text=DS" alt="Design Studio" class="w-12 h-12 rounded-lg mr-4">
+                        <div>
+                            <h3 class="text-xl font-bold">UX Designer</h3>
+                            <p class="opacity-90">Design Studio • Bangalore</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-white bg-opacity-10 rounded-full text-sm">Figma</span>
+                        <span class="px-2 py-1 bg-white bg-opacity-10 rounded-full text-sm">UI/UX</span>
+                        <span class="px-2 py-1 bg-white bg-opacity-10 rounded-full text-sm">Prototyping</span>
+                    </div>
+                    <p class="mb-4 line-clamp-3">Join our design team to create beautiful, intuitive interfaces for our products. You'll work closely with product managers and engineers.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-secondary">₹6L - ₹10L</span>
+                        <a href="job-detail.html" class="px-4 py-2 rounded-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition">View Details</a>
+                    </div>
+                </div>
+                
+                <!-- Job Card 3 -->
+                <div class="job-card glass p-6 rounded-xl border-l-4 border-secondary transition duration-300" data-type="remote part-time">
+                    <div class="flex items-start mb-4">
+                        <img src="https://via.placeholder.com/60x60?text=MS" alt="Marketing Solutions" class="w-12 h-12 rounded-lg mr-4">
+                        <div>
+                            <h3 class="text-xl font-bold">Content Writer</h3>
+                            <p class="opacity-90">Marketing Solutions • Remote</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-white bg-opacity-10 rounded-full text-sm">Writing</span>
+                        <span class="px-2 py-1 bg-white bg-opacity-10 rounded-full text-sm">SEO</span>
+                        <span class="px-2 py-1 bg-white bg-opacity-10 rounded-full text-sm">Blogging</span>
+                    </div>
+                    <p class="mb-4 line-clamp-3">Looking for a creative content writer to produce engaging articles, blog posts, and marketing copy for our clients.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-secondary">₹25k - ₹40k/mo</span>
+                        <a href="job-detail.html" class="px-4 py-2 rounded-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition">View Details</a>
+                    </div>
+                </div>
+                
+                <!-- Job Card 4 -->
+                <div class="job-card glass p-6 rounded-xl border-l-4 border-secondary transition duration-300" data-type="internship">
+                    <div class="flex items-start mb-4">
+                        <img src="https://via.placeholder.com/60x60?text=AI" alt="AI Innovations" class="w-12 h-12 rounded-lg mr-4">
+                        <div>
+                            <h3 class="text-xl font-bold">Data Science Intern</h3>
+                            <p class="opacity-90">AI Innovations • Hyderabad</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-white bg-opacity-10 rounded-full text-sm">Python</span>
+                        <span class="px-2 py-1 bg-white bg-opacity-10 rounded-full text-sm">Machine Learning</span>
+                        <span class="px-2 py-1 bg-white bg-opacity-10 rounded-full text-sm">Pandas</span>
+                    </div>
+                    <p class="mb-4 line-clamp-3">6-month internship opportunity for students/recent graduates to work on real-world data science projects with our team.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-secondary">Stipend: ₹20k/mo</span>
+                        <a href="job-detail.html" class="px-4 py-2 rounded-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition">View Details</a>
+                    </div>
+                </div>
+                
+                <!-- Job Card 5 -->
+                <div class="job-card glass p-6 rounded-xl border-l-4 border-secondary transition duration-300" data-type="full-time">
+                    <div class="flex items-start mb-4">
+                        <img src="https://via.placeholder.com/60x60?text=FS" alt="Financial Services" class="w-12 h-12 rounded-lg mr-4">
+                        <div>
+                            <h3 class="text-xl font-bold">Account Manager</h3>
+                            <p class="opacity-90">Financial Services • Mumbai</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-white bg-opacity-10 rounded-full text-sm">Finance</span>
+                        <span class="px-2 py-1 bg-white bg-opacity-10 rounded-full text-sm">Sales</span>
+                        <span class="px-2 py-1 bg-white bg-opacity-10 rounded-full text-sm">CRM</span>
+                    </div>
+                    <p class="mb-4 line-clamp-3">Manage client relationships and drive sales of our financial products. Ideal candidates will have 2+ years in financial services.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-secondary">₹7L - ₹9L</span>
+                        <a href="job-detail.html" class="px-4 py-2 rounded-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition">View Details</a>
+                    </div>
+                </div>
+                
+                <!-- Job Card 6 -->
+                <div class="job-card glass p-6 rounded-xl border-l-4 border-secondary transition duration-300" data-type="remote full-time">
+                    <div class="flex items-start mb-4">
+                        <img src="https://via.placeholder.com/60x60?text=CC" alt="Cloud Corp" class="w-12 h-12 rounded-lg mr-4">
+                        <div>
+                            <h3 class="text-xl font-bold">DevOps Engineer</h3>
+                            <p class="opacity-90">Cloud Corp • Remote</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-white bg-opacity-10 rounded-full text-sm">AWS</span>
+                        <span class="px-2 py-1 bg-white bg-opacity-10 rounded-full text-sm">Docker</span>
+                        <span class="px-2 py-1 bg-white bg-opacity-10 rounded-full text-sm">CI/CD</span>
+                    </div>
+                    <p class="mb-4 line-clamp-3">Looking for DevOps engineers to help build and maintain our cloud infrastructure. Strong AWS and automation skills required.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-secondary">₹10L - ₹15L</span>
+                        <a href="job-detail.html" class="px-4 py-2 rounded-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition">View Details</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="flex justify-center mt-12 animate-fade-in" style="animation-delay: 0.6s;">
+                <nav class="glass p-2 rounded-xl">
+                    <ul class="flex space-x-2">
+                        <li>
+                            <a href="#" class="px-3 py-1 rounded-lg bg-white bg-opacity-10">&laquo;</a>
+                        </li>
+                        <li>
+                            <a href="#" class="px-3 py-1 rounded-lg bg-secondary text-dark font-bold">1</a>
+                        </li>
+                        <li>
+                            <a href="#" class="px-3 py-1 rounded-lg hover:bg-white hover:bg-opacity-10 transition">2</a>
+                        </li>
+                        <li>
+                            <a href="#" class="px-3 py-1 rounded-lg hover:bg-white hover:bg-opacity-10 transition">3</a>
+                        </li>
+                        <li>
+                            <a href="#" class="px-3 py-1 rounded-lg hover:bg-white hover:bg-opacity-10 transition">4</a>
+                        </li>
+                        <li>
+                            <a href="#" class="px-3 py-1 rounded-lg hover:bg-white hover:bg-opacity-10 transition">5</a>
+                        </li>
+                        <li>
+                            <a href="#" class="px-3 py-1 rounded-lg bg-white bg-opacity-10">&raquo;</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="glass mx-4 mb-4 rounded-xl p-6">
+        <div class="grid md:grid-cols-4 gap-8">
+            <div>
+                <h3 class="text-lg font-bold mb-4">CareerConnect</h3>
+                <p class="opacity-80">Connecting talented professionals with great companies worldwide.</p>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-bold mb-4">For Job Seekers</h3>
+                <ul class="space-y-2">
+                    <li><a href="jobs.html" class="opacity-80 hover:text-secondary transition">Browse Jobs</a></li>
+                    <li><a href="register.html" class="opacity-80 hover:text-secondary transition">Create Profile</a></li>
+                    <li><a href="#" class="opacity-80 hover:text-secondary transition">Career Resources</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-bold mb-4">For Employers</h3>
+                <ul class="space-y-2">
+                    <li><a href="employers.html" class="opacity-80 hover:text-secondary transition">Post a Job</a></li>
+                    <li><a href="#" class="opacity-80 hover:text-secondary transition">Browse Candidates</a></li>
+                    <li><a href="#" class="opacity-80 hover:text-secondary transition">Recruitment Solutions</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-bold mb-4">Company</h3>
+                <ul class="space-y-2">
+                    <li><a href="about.html" class="opacity-80 hover:text-secondary transition">About Us</a></li>
+                    <li><a href="contact.html" class="opacity-80 hover:text-secondary transition">Contact</a></li>
+                    <li><a href="#" class="opacity-80 hover:text-secondary transition">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="mt-8 pt-8 border-t border-white border-opacity-20 text-center opacity-80">
+            <p>&copy; <span id="current-year"></span> CareerConnect. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Job Detail Modal -->
+    <div id="job-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="glass p-8 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <button onclick="closeJobModal()" class="absolute top-4 right-4 text-2xl">&times;</button>
+            
+            <div class="flex items-start mb-6">
+                <img id="modal-company-logo" src="https://via.placeholder.com/80x80" alt="Company" class="w-16 h-16 rounded-lg mr-4">
+                <div>
+                    <h2 id="modal-job-title" class="text-2xl font-bold"></h2>
+                    <p id="modal-company-name" class="text-lg opacity-90"></p>
+                    <p id="modal-job-location" class="opacity-80"></p>
+                </div>
+            </div>
+            
+            <div class="flex flex-wrap gap-2 mb-6">
+                <span id="modal-job-type" class="px-3 py-1 bg-white bg-opacity-10 rounded-full"></span>
+                <span id="modal-job-salary" class="px-3 py-1 bg-secondary bg-opacity-20 rounded-full font-medium"></span>
+            </div>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-3">Job Description</h3>
+                <div id="modal-job-description" class="prose prose-invert opacity-90"></div>
+            </div>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-3">Requirements</h3>
+                <div id="modal-job-requirements" class="prose prose-invert opacity-90"></div>
+            </div>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-3">Benefits</h3>
+                <div id="modal-job-benefits" class="prose prose-invert opacity-90"></div>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row justify-between gap-4">
+                <a href="#" id="modal-apply-btn" class="bg-secondary text-dark font-bold py-3 px-6 rounded-lg hover:bg-opacity-90 transition text-center">
+                    Apply Now
+                </a>
+                <a href="#" class="py-3 px-6 rounded-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition text-center">
+                    Save Job
+                </a>
+                <a href="#" class="py-3 px-6 rounded-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition text-center">
+                    Share
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Job Filtering
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const jobCards = document.querySelectorAll('.job-card');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active-filter'));
+                this.classList.add('active-filter');
+                
+                const filterValue = this.getAttribute('data-filter');
+                
+                // Filter jobs
+                jobCards.forEach(card => {
+                    if (filterValue === 'all' || card.getAttribute('data-type').includes(filterValue)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Job Modal Functions
+        function openJobModal(jobData) {
+            // Populate modal with job data
+            document.getElementById('modal-company-logo').src = jobData.logo;
+            document.getElementById('modal-job-title').textContent = jobData.title;
+            document.getElementById('modal-company-name').textContent = jobData.company;
+            document.getElementById('modal-job-location').textContent = jobData.location;
+            document.getElementById('modal-job-type').textContent = jobData.type;
+            document.getElementById('modal-job-salary').textContent = jobData.salary;
+            document.getElementById('modal-job-description').innerHTML = jobData.description;
+            document.getElementById('modal-job-requirements').innerHTML = jobData.requirements;
+            document.getElementById('modal-job-benefits').innerHTML = jobData.benefits;
+            document.getElementById('modal-apply-btn').href = jobData.applyLink;
+            
+            // Show modal
+            document.getElementById('job-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeJobModal() {
+            document.getElementById('job-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Sample job data (in a real app, this would come from your backend)
+        const jobsData = {
+            'frontend-dev': {
+                logo: 'https://via.placeholder.com/80x80?text=TC',
+                title: 'Frontend Developer',
+                company: 'Tech Corp',
+                location: 'Remote',
+                type: 'Full-time',
+                salary: '₹8L - ₹12L',
+                description: '<p>We\'re looking for a skilled Frontend Developer to join our team and help build amazing user experiences using React and modern web technologies.</p><p><strong>Responsibilities:</strong></p><ul><li>Develop new user-facing features</li><li>Build reusable components and front-end libraries</li><li>Optimize applications for maximum performance</li><li>Collaborate with designers and backend developers</li></ul>',
+                requirements: '<p><strong>Requirements:</strong></p><ul><li>3+ years of experience with React</li><li>Proficient in JavaScript, HTML5, CSS3</li><li>Experience with Redux or similar state management</li><li>Familiarity with RESTful APIs</li><li>Degree in Computer Science or related field</li></ul>',
+                benefits: '<p><strong>Benefits:</strong></p><ul><li>Flexible work hours</li><li>Health insurance</li><li>Annual bonus</li><li>Professional development budget</li><li>Remote work options</li></ul>',
+                applyLink: 'apply.html?job=frontend-dev'
+            },
+            // Add data for other jobs similarly
+        };
+
+        // Attach click handlers to job cards (in a real app, this would use the actual job IDs)
+        document.querySelectorAll('.job-card a[href="job-detail.html"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                openJobModal(jobsData['frontend-dev']); // In real app, pass correct job ID
+            });
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('job-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeJobModal();
+            }
+        });
+
+        // Search functionality
+        document.querySelector('button:contains("Search Jobs")').addEventListener('click', function() {
+            const searchTerm = document.querySelector('input[type="text"]').value.toLowerCase();
+            const locationTerm = document.querySelector('input[placeholder="Location"]').value.toLowerCase();
+            
+            jobCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const company = card.querySelector('p').textContent.toLowerCase();
+                const location = card.querySelector('p').textContent.toLowerCase();
+                
+                if ((title.includes(searchTerm) || company.includes(searchTerm)) && 
+                    (locationTerm === '' || location.includes(locationTerm))) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

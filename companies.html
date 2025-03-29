@@ -1,0 +1,2232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Companies Hiring Now | JobFinder</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #2c3e50;
+            --accent: #f39c12;
+            --success: #27ae60;
+            --success-dark: #219653;
+            --danger: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+            --light-gray: #f5f7fa;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo h1 {
+            margin: 0;
+            color: var(--secondary);
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .logo h1:hover {
+            animation: pulse 1s;
+        }
+        
+        .logo h1 a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+            position: relative;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 5px 0;
+            position: relative;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
+            width: 100%;
+        }
+        
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--primary);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn-login {
+            background-color: var(--primary);
+            color: white !important;
+        }
+        
+        .btn-login:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Hero Section */
+        .companies-hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .companies-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .companies-hero .container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .companies-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: fadeIn 0.8s ease-out 0.2s both;
+        }
+        
+        .companies-hero p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            animation: fadeIn 0.8s ease-out 0.4s both;
+        }
+        
+        .hero-cta {
+            display: inline-block;
+            background-color: white;
+            color: var(--primary);
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.8s ease-out 0.6s both;
+        }
+        
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Search and Filter Section */
+        .search-filter {
+            background-color: var(--light-gray);
+            padding: 40px 0;
+            margin-bottom: 30px;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .search-box {
+            display: flex;
+            margin-bottom: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 50px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 15px 25px;
+            border: none;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .search-box button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 30px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-box button:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .filter-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-options select {
+            padding: 12px 20px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            background-color: white;
+            font-size: 0.9rem;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 15px;
+            padding-right: 40px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .filter-options select:hover {
+            border-color: var(--primary);
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2);
+        }
+        
+        .filter-options select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+        }
+        
+        /* Companies List Section */
+        .companies-list {
+            padding: 60px 0;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .section-header h2 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        
+        .sort-options {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .sort-options span {
+            font-weight: 500;
+            color: var(--gray);
+        }
+        
+        .sort-options select {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .sort-options select:hover {
+            border-color: var(--primary);
+        }
+        
+        .companies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .company-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: fadeIn 0.6s ease-out;
+            will-change: transform;
+        }
+        
+        .company-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .company-logo {
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .company-logo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(41, 128, 185, 0.2));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .company-card:hover .company-logo::before {
+            opacity: 1;
+        }
+        
+        .company-logo img {
+            max-height: 80px;
+            max-width: 80%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+        
+        .company-card:hover .company-logo img {
+            transform: scale(1.1);
+        }
+        
+        .company-info {
+            padding: 25px;
+            position: relative;
+        }
+        
+        .company-name {
+            font-size: 1.3rem;
+            margin: 0 0 10px;
+            color: var(--secondary);
+            transition: color 0.3s ease;
+        }
+        
+        .company-card:hover .company-name {
+            color: var(--primary);
+        }
+        
+        .company-rating {
+            color: var(--accent);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .company-rating span {
+            margin-left: 5px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .company-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .company-meta span {
+            display: flex;
+            align-items: center;
+        }
+        
+        .company-meta i {
+            margin-right: 5px;
+            color: var(--primary);
+        }
+        
+        .company-jobs {
+            color: var(--primary);
+            font-weight: 500;
+            margin-top: 15px;
+            display: block;
+            transition: color 0.3s ease;
+        }
+        
+        .company-card:hover .company-jobs {
+            color: var(--primary-dark);
+        }
+        
+        .view-btn {
+            display: block;
+            text-align: center;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .view-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(41, 128, 185, 0.3);
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 50px;
+        }
+        
+        .pagination button {
+            padding: 10px 20px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .pagination button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .pagination button:hover:not(:disabled) {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .page-info {
+            font-weight: 500;
+            color: var(--gray);
+        }
+        
+        /* Post Job Section */
+        .post-job-section {
+            background-color: var(--light-gray);
+            padding: 60px 0;
+            margin: 60px 0;
+            border-top: 1px solid #e1e5eb;
+            border-bottom: 1px solid #e1e5eb;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .post-job-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .post-job-container:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .post-job-container h2 {
+            margin-top: 0;
+            color: var(--secondary);
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .post-job-container h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        
+        .post-job-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--secondary);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 20px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .post-job-btn {
+            grid-column: 1 / -1;
+            background-color: var(--success);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .post-job-btn:hover {
+            background-color: var(--success-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(39, 174, 96, 0.3);
+        }
+        
+        .post-job-btn:active {
+            transform: translateY(0);
+        }
+        
+        .company-dashboard-link {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .company-dashboard-link:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+        
+        .company-dashboard-link i {
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+        }
+        
+        .company-dashboard-link:hover i {
+            transform: translateX(3px);
+        }
+        
+        /* Featured Companies */
+        .featured-companies {
+            padding: 60px 0;
+            background-color: var(--light);
+        }
+        
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .featured-company {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .featured-company:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .featured-logo {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .featured-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+        
+        .featured-company:hover .featured-logo img {
+            filter: grayscale(0);
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        .featured-name {
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .featured-jobs {
+            color: var(--primary);
+            font-weight: 500;
+            margin-top: auto;
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .stat-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, white, #f1c40f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 40px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 900px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+            animation: slideInRight 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: all 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: var(--danger);
+            transform: rotate(90deg);
+        }
+        
+        .modal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .modal-header img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-right: 30px;
+            border: 1px solid #eee;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .modal-header img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .modal-header h2 {
+            margin: 0 0 10px;
+            color: var(--secondary);
+            font-size: 1.8rem;
+        }
+        
+        .modal-header .company-rating {
+            margin-bottom: 15px;
+        }
+        
+        .modal-header .company-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .modal-body {
+            margin-bottom: 30px;
+        }
+        
+        .modal-section {
+            margin-bottom: 40px;
+        }
+        
+        .modal-section h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            font-size: 1.4rem;
+            position: relative;
+        }
+        
+        .modal-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        
+        .job-listings {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .job-listing {
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .job-listing:hover {
+            background-color: var(--light-gray);
+            border-color: var(--primary);
+            transform: translateX(5px);
+        }
+        
+        .job-listing h4 {
+            margin: 0 0 10px;
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+        
+        .job-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+        
+        .job-description {
+            margin-bottom: 15px;
+        }
+        
+        .job-description p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .job-description strong {
+            color: var(--secondary);
+        }
+        
+        .job-listing a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .job-listing a i {
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+        }
+        
+        .job-listing a:hover {
+            color: var(--primary-dark);
+        }
+        
+        .job-listing a:hover i {
+            transform: translateX(3px);
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+        }
+        
+        .btn-close, .btn-primary {
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-close {
+            background-color: var(--danger);
+            color: white;
+            border: none;
+        }
+        
+        .btn-close:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 70px 0 0;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3, .footer-section h4 {
+            margin-bottom: 25px;
+            position: relative;
+            color: white;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.8rem;
+        }
+        
+        .footer-section h4 {
+            font-size: 1.2rem;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        .footer-section p {
+            opacity: 0.8;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-section ul li a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+        }
+        
+        .footer-section ul li a:hover {
+            color: var(--primary);
+            opacity: 1;
+            padding-left: 5px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding: 25px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-5px);
+        }
+        
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--success);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .toast.visible {
+            opacity: 1;
+            visibility: visible;
+            animation: fadeIn 0.3s ease-out, fadeOut 0.3s ease-out 3s forwards;
+        }
+        
+        .toast i {
+            font-size: 1.2rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .companies-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .modal-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .modal-header img {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .modal-header .company-info {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 15px;
+            }
+            
+            .companies-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .companies-hero p {
+                font-size: 1.1rem;
+            }
+            
+            .filter-options {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-options select {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .post-job-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                width: 90%;
+                padding: 30px 20px;
+            }
+            
+            .modal-footer {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn-close, .btn-primary {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .companies-hero {
+                padding: 80px 0;
+            }
+            
+            .companies-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .sort-options {
+                margin-top: 15px;
+                width: 100%;
+            }
+            
+            .sort-options select {
+                width: 100%;
+            }
+            
+            .companies-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .post-job-container {
+                padding: 30px 20px;
+            }
+        }
+        
+        /* Animation Classes */
+        .animate-delay-1 {
+            animation-delay: 0.2s !important;
+        }
+        
+        .animate-delay-2 {
+            animation-delay: 0.4s !important;
+        }
+        
+        .animate-delay-3 {
+            animation-delay: 0.6s !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-message">Job posted successfully!</span>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1><a href="index.html">JobFinder</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="jobs.html">Jobs</a></li>
+                    <li><a href="companies.html" class="active">Companies</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html" class="btn-login">Login/Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="companies-hero">
+        <div class="container">
+            <h1>Discover Top Companies</h1>
+            <p>Find your dream company and explore their current job openings. Connect with employers and grow your career.</p>
+            <a href="#post-job" class="hero-cta animate__animated animate__fadeInUp animate__delay-1s">Post a Job Opening</a>
+        </div>
+    </section>
+
+    <section class="search-filter">
+        <div class="container">
+            <div class="search-box">
+                <input type="text" id="company-search" placeholder="Search companies by name or industry...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="filter-options">
+                <select id="industry-filter">
+                    <option value="">All Industries</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Retail">Retail</option>
+                    <option value="Education">Education</option>
+                    <option value="Manufacturing">Manufacturing</option>
+                    <option value="Hospitality">Hospitality</option>
+                </select>
+                <select id="size-filter">
+                    <option value="">All Sizes</option>
+                    <option value="1-50">1-50 employees</option>
+                    <option value="51-200">51-200 employees</option>
+                    <option value="201-500">201-500 employees</option>
+                    <option value="501-1000">501-1000 employees</option>
+                    <option value="1000+">1000+ employees</option>
+                </select>
+                <select id="location-filter">
+                    <option value="">All Locations</option>
+                    <option value="USA">USA</option>
+                    <option value="UK">UK</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Germany">Germany</option>
+                    <option value="Remote">Remote</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="container">
+            <h2 class="animate__animated animate__fadeIn">Why Companies Choose Us</h2>
+            <div class="stats-grid">
+                <div class="stat-item animate__animated animate__fadeIn animate-delay-1">
+                    <div class="stat-number" id="companies-count">0</div>
+                    <div class="stat-label">Trusted Companies</div>
+                </div>
+                <div class="stat-item animate__animated animate__fadeIn animate-delay-2">
+                    <div class="stat-number" id="jobs-count">0</div>
+                    <div class="stat-label">Job Openings</div>
+                </div>
+                <div class="stat-item animate__animated animate__fadeIn animate-delay-3">
+                    <div class="stat-number" id="candidates-count">0</div>
+                    <div class="stat-label">Active Candidates</div>
+                </div>
+                <div class="stat-item animate__animated animate__fadeIn animate-delay-3">
+                    <div class="stat-number" id="success-rate">0%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="companies-list">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Companies</h2>
+                <div class="sort-options">
+                    <span>Sort by:</span>
+                    <select id="sort-by">
+                        <option value="name-asc">Name (A-Z)</option>
+                        <option value="name-desc">Name (Z-A)</option>
+                        <option value="rating-desc">Highest Rated</option>
+                        <option value="jobs-desc">Most Job Openings</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="companies-grid" id="companies-container">
+                <!-- Companies will be loaded here via JavaScript -->
+            </div>
+            
+            <div class="pagination">
+                <button id="prev-page" disabled><i class="fas fa-chevron-left"></i> Previous</button>
+                <span class="page-info" id="page-info">Page 1 of 5</span>
+                <button id="next-page">Next <i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured-companies">
+        <div class="container">
+            <h2 class="section-header">Top Employers</h2>
+            <div class="featured-grid">
+                <div class="featured-company animate__animated animate__fadeIn">
+                    <div class="featured-logo">
+                        <img src="https://via.placeholder.com/150" alt="TechCorp Logo">
+                    </div>
+                    <div class="featured-name">TechCorp</div>
+                    <div class="featured-jobs">24 Open Positions</div>
+                </div>
+                <div class="featured-company animate__animated animate__fadeIn animate-delay-1">
+                    <div class="featured-logo">
+                        <img src="https://via.placeholder.com/150" alt="GreenFinance Logo">
+                    </div>
+                    <div class="featured-name">GreenFinance</div>
+                    <div class="featured-jobs">12 Open Positions</div>
+                </div>
+                <div class="featured-company animate__animated animate__fadeIn animate-delay-2">
+                    <div class="featured-logo">
+                        <img src="https://via.placeholder.com/150" alt="HealthPlus Logo">
+                    </div>
+                    <div class="featured-name">HealthPlus</div>
+                    <div class="featured-jobs">36 Open Positions</div>
+                </div>
+                <div class="featured-company animate__animated animate__fadeIn animate-delay-3">
+                    <div class="featured-logo">
+                        <img src="https://via.placeholder.com/150" alt="ShopEasy Logo">
+                    </div>
+                    <div class="featured-name">ShopEasy</div>
+                    <div class="featured-jobs">42 Open Positions</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="post-job-section" id="post-job">
+        <div class="container post-job-container">
+            <h2>Post a Job Opening</h2>
+            <form id="post-job-form" class="post-job-form">
+                <div class="form-group">
+                    <label for="job-company">Company</label>
+                    <select id="job-company" required>
+                        <option value="">Select your company</option>
+                        <option value="1">TechCorp</option>
+                        <option value="2">GreenFinance</option>
+                        <option value="3">HealthPlus</option>
+                        <option value="4">EduFuture</option>
+                        <option value="5">ShopEasy</option>
+                        <option value="6">CloudNine</option>
+                        <option value="7">GlobalBank</option>
+                        <option value="8">BioHealth</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="job-title">Job Title</label>
+                    <input type="text" id="job-title" placeholder="e.g. Senior Software Engineer" required>
+                </div>
+                <div class="form-group">
+                    <label for="job-type">Job Type</label>
+                    <select id="job-type" required>
+                        <option value="">Select job type</option>
+                        <option value="Full-time">Full-time</option>
+                        <option value="Part-time">Part-time</option>
+                        <option value="Contract">Contract</option>
+                        <option value="Internship">Internship</option>
+                        <option value="Temporary">Temporary</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="job-location">Location</label>
+                    <input type="text" id="job-location" placeholder="e.g. New York, NY or Remote" required>
+                </div>
+                <div class="form-group">
+                    <label for="job-salary">Salary Range</label>
+                    <input type="text" id="job-salary" placeholder="e.g. $80,000 - $100,000">
+                </div>
+                <div class="form-group full-width">
+                    <label for="job-description">Job Description</label>
+                    <textarea id="job-description" placeholder="Describe the position, responsibilities, and requirements" required></textarea>
+                </div>
+                <div class="form-group full-width">
+                    <label for="job-requirements">Requirements</label>
+                    <textarea id="job-requirements" placeholder="List the skills, qualifications, and experience needed" required></textarea>
+                </div>
+                <button type="submit" class="post-job-btn"><i class="fas fa-paper-plane"></i> Post Job Opening</button>
+                <a href="company-dashboard.html" class="company-dashboard-link">Go to Company Dashboard <i class="fas fa-arrow-right"></i></a>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>JobFinder</h3>
+                    <p>Connecting top talent with leading companies worldwide. Our platform makes hiring and job searching efficient and effective.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="jobs.html">Browse Jobs</a></li>
+                        <li><a href="companies.html">Companies</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Career Advice</a></li>
+                        <li><a href="#">Resume Tips</a></li>
+                        <li><a href="#">Interview Prep</a></li>
+                        <li><a href="#">Salary Calculator</a></li>
+                        <li><a href="#">Company Reviews</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-envelope"></i> info@jobfinder.com</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Career Lane, Suite 100<br>San Francisco, CA 94107</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 JobFinder. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Company Detail Modal -->
+    <div class="modal" id="company-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <img id="modal-company-logo" src="" alt="Company Logo">
+                <div>
+                    <h2 id="modal-company-name"></h2>
+                    <div class="company-rating" id="modal-company-rating"></div>
+                    <div class="company-info">
+                        <span id="modal-company-industry"></span>
+                        <span id="modal-company-size"></span>
+                        <span id="modal-company-location"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>About the Company</h3>
+                    <p id="modal-company-about"></p>
+                </div>
+                <div class="modal-section">
+                    <h3>Current Job Openings</h3>
+                    <div class="job-listings" id="modal-company-jobs">
+                        <!-- Jobs will be loaded here -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-close">Close</button>
+                <button class="btn-primary">Visit Company Website</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sample company data
+            const companies = [
+                {
+                    id: 1,
+                    name: "TechCorp",
+                    logo: "https://via.placeholder.com/150",
+                    rating: 4.5,
+                    industry: "Technology",
+                    size: "1000+",
+                    location: "USA",
+                    jobs: 24,
+                    about: "TechCorp is a leading technology company specializing in software development, cloud computing, and AI solutions. We're committed to innovation and creating products that change the world. Our culture values creativity, collaboration, and continuous learning. We offer competitive salaries, comprehensive benefits, and opportunities for professional growth.",
+                    jobOpenings: [
+                        { 
+                            title: "Senior Software Engineer", 
+                            type: "Full-time", 
+                            location: "San Francisco, CA",
+                            salary: "$120,000 - $150,000",
+                            description: "Design and implement scalable software solutions using modern technologies. Collaborate with cross-functional teams to define, design, and ship new features.",
+                            requirements: "5+ years of software development experience, proficiency in JavaScript/TypeScript, experience with cloud platforms (AWS preferred), strong problem-solving skills"
+                        },
+                        { 
+                            title: "Product Manager", 
+                            type: "Full-time", 
+                            location: "Remote",
+                            salary: "$110,000 - $140,000",
+                            description: "Lead product development from conception to launch. Gather and prioritize product requirements, define the product vision, and work closely with engineering and design teams.",
+                            requirements: "3+ years of product management experience, technical background, excellent communication skills, experience with Agile methodologies"
+                        },
+                        { 
+                            title: "UX Designer", 
+                            type: "Contract", 
+                            location: "New York, NY",
+                            salary: "$50 - $70 per hour",
+                            description: "Create user-centered designs by understanding business requirements, user journeys, and usability findings. Develop wireframes and prototypes.",
+                            requirements: "Portfolio demonstrating UX design skills, proficiency in Figma/Sketch, 3+ years of UX design experience, understanding of front-end technologies"
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    name: "GreenFinance",
+                    logo: "https://via.placeholder.com/150",
+                    rating: 4.2,
+                    industry: "Finance",
+                    size: "501-1000",
+                    location: "UK",
+                    jobs: 12,
+                    about: "GreenFinance is a sustainable investment firm that helps clients grow their wealth while supporting environmentally and socially responsible businesses. We believe in creating financial value that also generates positive impact. Our team is passionate about combining financial expertise with sustainability principles to deliver superior returns.",
+                    jobOpenings: [
+                        { 
+                            title: "Financial Analyst", 
+                            type: "Full-time", 
+                            location: "London, UK",
+                            salary: "£60,000 - £75,000",
+                            description: "Analyze financial data and create financial models for decision support. Evaluate investment opportunities with a focus on ESG (Environmental, Social, Governance) factors.",
+                            requirements: "Degree in Finance or related field, 2+ years of financial analysis experience, strong Excel skills, knowledge of ESG investing principles"
+                        },
+                        { 
+                            title: "Investment Advisor", 
+                            type: "Full-time", 
+                            location: "Remote",
+                            salary: "£70,000 - £90,000 + bonus",
+                            description: "Provide investment advice to high-net-worth clients with a focus on sustainable investing. Develop customized investment strategies based on client goals and values.",
+                            requirements: "Relevant certifications (CFA, CFP preferred), 5+ years in wealth management, excellent interpersonal skills, passion for sustainable finance"
+                        }
+                    ]
+                },
+                {
+                    id: 3,
+                    name: "HealthPlus",
+                    logo: "https://via.placeholder.com/150",
+                    rating: 4.7,
+                    industry: "Healthcare",
+                    size: "1000+",
+                    location: "USA",
+                    jobs: 36,
+                    about: "HealthPlus operates a network of hospitals and clinics across the country, providing top-quality healthcare services to millions of patients each year. Our mission is to make healthcare more accessible, affordable, and effective. We invest in cutting-edge medical technology and prioritize patient-centered care.",
+                    jobOpenings: [
+                        { 
+                            title: "Registered Nurse", 
+                            type: "Full-time", 
+                            location: "Chicago, IL",
+                            salary: "$75,000 - $95,000",
+                            description: "Provide direct patient care in a fast-paced hospital environment. Administer medications, monitor patient conditions, and collaborate with physicians.",
+                            requirements: "Active RN license, BSN preferred, 2+ years of clinical experience, BLS/ACLS certification"
+                        },
+                        { 
+                            title: "Medical Doctor", 
+                            type: "Full-time", 
+                            location: "Boston, MA",
+                            salary: "$200,000 - $300,000",
+                            description: "Diagnose and treat patients in a specialized department. Supervise medical staff and participate in quality improvement initiatives.",
+                            requirements: "Medical degree and valid license, board certification, 3+ years of practice experience"
+                        },
+                        { 
+                            title: "Healthcare Administrator", 
+                            type: "Full-time", 
+                            location: "Remote",
+                            salary: "$90,000 - $120,000",
+                            description: "Oversee daily operations of healthcare facilities. Manage budgets, improve efficiency, and ensure compliance with healthcare regulations.",
+                            requirements: "Master's in Healthcare Administration, 5+ years of management experience, knowledge of healthcare laws and regulations"
+                        }
+                    ]
+                },
+                {
+                    id: 4,
+                    name: "EduFuture",
+                    logo: "https://via.placeholder.com/150",
+                    rating: 4.0,
+                    industry: "Education",
+                    size: "201-500",
+                    location: "Canada",
+                    jobs: 8,
+                    about: "EduFuture develops innovative educational technologies and platforms that help students of all ages learn more effectively and achieve their academic goals. Our products are used by millions of students and educators worldwide. We combine pedagogical expertise with cutting-edge technology to create engaging learning experiences.",
+                    jobOpenings: [
+                        { 
+                            title: "Curriculum Developer", 
+                            type: "Full-time", 
+                            location: "Toronto, Canada",
+                            salary: "CA$70,000 - CA$85,000",
+                            description: "Design and develop educational content and learning materials for digital platforms. Work with subject matter experts to create engaging curriculum.",
+                            requirements: "Degree in Education or related field, 3+ years curriculum development experience, knowledge of instructional design principles"
+                        },
+                        { 
+                            title: "EdTech Engineer", 
+                            type: "Full-time", 
+                            location: "Remote",
+                            salary: "CA$80,000 - CA$100,000",
+                            description: "Develop and maintain educational software platforms. Implement features that enhance the learning experience for students.",
+                            requirements: "Proficiency in JavaScript/Python, experience with learning management systems, passion for education technology"
+                        }
+                    ]
+                },
+                {
+                    id: 5,
+                    name: "ShopEasy",
+                    logo: "https://via.placeholder.com/150",
+                    rating: 3.8,
+                    industry: "Retail",
+                    size: "1000+",
+                    location: "USA",
+                    jobs: 42,
+                    about: "ShopEasy is one of the largest e-commerce platforms in the world, offering millions of products with fast delivery and excellent customer service. We're revolutionizing online shopping through technology and innovation. Our diverse team works collaboratively to create seamless shopping experiences for customers worldwide.",
+                    jobOpenings: [
+                        { 
+                            title: "Supply Chain Manager", 
+                            type: "Full-time", 
+                            location: "Seattle, WA",
+                            salary: "$95,000 - $120,000",
+                            description: "Optimize supply chain operations to ensure efficient product delivery. Manage relationships with suppliers and logistics partners.",
+                            requirements: "5+ years supply chain experience, strong analytical skills, knowledge of inventory management systems"
+                        },
+                        { 
+                            title: "Customer Service Rep", 
+                            type: "Part-time", 
+                            location: "Remote",
+                            salary: "$18 - $22 per hour",
+                            description: "Assist customers with orders, returns, and inquiries via phone, email, and chat. Provide exceptional service to enhance customer satisfaction.",
+                            requirements: "Excellent communication skills, patience, ability to multitask, high school diploma or equivalent"
+                        },
+                        { 
+                            title: "Data Analyst", 
+                            type: "Full-time", 
+                            location: "Remote",
+                            salary: "$85,000 - $105,000",
+                            description: "Analyze customer behavior and sales data to generate insights. Create reports and dashboards to support business decisions.",
+                            requirements: "Proficiency in SQL and data visualization tools, 2+ years analytics experience, strong problem-solving skills"
+                        }
+                    ]
+                },
+                {
+                    id: 6,
+                    name: "CloudNine",
+                    logo: "https://via.placeholder.com/150",
+                    rating: 4.9,
+                    industry: "Technology",
+                    size: "51-200",
+                    location: "Remote",
+                    jobs: 15,
+                    about: "CloudNine provides cutting-edge cloud computing solutions to businesses of all sizes, helping them scale their operations efficiently and securely. Our platform offers unmatched reliability and performance. We're a fully remote company that values work-life balance and invests heavily in employee development.",
+                    jobOpenings: [
+                        { 
+                            title: "Cloud Architect", 
+                            type: "Full-time", 
+                            location: "Remote",
+                            salary: "$130,000 - $160,000",
+                            description: "Design and implement cloud infrastructure solutions for enterprise clients. Guide teams in adopting cloud-native architectures.",
+                            requirements: "AWS/Azure/GCP certification, 5+ years cloud experience, strong understanding of DevOps principles"
+                        },
+                        { 
+                            title: "DevOps Engineer", 
+                            type: "Full-time", 
+                            location: "Remote",
+                            salary: "$110,000 - $140,000",
+                            description: "Automate deployment processes and maintain CI/CD pipelines. Monitor system performance and troubleshoot issues.",
+                            requirements: "Experience with Docker/Kubernetes, proficiency in scripting languages, knowledge of infrastructure as code"
+                        }
+                    ]
+                },
+                {
+                    id: 7,
+                    name: "GlobalBank",
+                    logo: "https://via.placeholder.com/150",
+                    rating: 4.1,
+                    industry: "Finance",
+                    size: "1000+",
+                    location: "Australia",
+                    jobs: 28,
+                    about: "GlobalBank is an international banking institution offering a wide range of financial services to individuals and businesses across multiple countries. We combine global expertise with local knowledge to serve our clients. Our commitment to innovation has made us a leader in digital banking solutions.",
+                    jobOpenings: [
+                        { 
+                            title: "Bank Manager", 
+                            type: "Full-time", 
+                            location: "Sydney, Australia",
+                            salary: "AU$100,000 - AU$130,000",
+                            description: "Oversee branch operations and staff. Develop business strategies to attract and retain customers while ensuring regulatory compliance.",
+                            requirements: "5+ years banking experience, leadership skills, knowledge of financial regulations"
+                        },
+                        { 
+                            title: "Risk Analyst", 
+                            type: "Full-time", 
+                            location: "Melbourne, Australia",
+                            salary: "AU$90,000 - AU$110,000",
+                            description: "Assess financial risks and develop mitigation strategies. Analyze market trends and prepare risk reports for senior management.",
+                            requirements: "Degree in Finance or related field, 3+ years risk analysis experience, strong quantitative skills"
+                        }
+                    ]
+                },
+                {
+                    id: 8,
+                    name: "BioHealth",
+                    logo: "https://via.placeholder.com/150",
+                    rating: 4.3,
+                    industry: "Healthcare",
+                    size: "201-500",
+                    location: "USA",
+                    jobs: 17,
+                    about: "BioHealth is a biotechnology company focused on developing innovative treatments for rare diseases and improving patient outcomes through cutting-edge research. Our team of scientists and researchers is dedicated to advancing medical science. We offer a collaborative work environment with opportunities to contribute to groundbreaking discoveries.",
+                    jobOpenings: [
+                        { 
+                            title: "Research Scientist", 
+                            type: "Full-time", 
+                            location: "Boston, MA",
+                            salary: "$95,000 - $125,000",
+                            description: "Conduct laboratory research to develop new therapies. Design and execute experiments, analyze data, and publish findings.",
+                            requirements: "PhD in Biology or related field, 2+ years postdoc experience, strong publication record"
+                        },
+                        { 
+                            title: "Clinical Trial Manager", 
+                            type: "Full-time", 
+                            location: "Remote",
+                            salary: "$110,000 - $140,000",
+                            description: "Oversee clinical trial operations from planning to execution. Ensure compliance with protocols and regulatory requirements.",
+                            requirements: "5+ years clinical research experience, knowledge of GCP guidelines, excellent organizational skills"
+                        }
+                    ]
+                }
+            ];
+
+            // DOM elements
+            const companiesContainer = document.getElementById('companies-container');
+            const companySearch = document.getElementById('company-search');
+            const industryFilter = document.getElementById('industry-filter');
+            const sizeFilter = document.getElementById('size-filter');
+            const locationFilter = document.getElementById('location-filter');
+            const sortBy = document.getElementById('sort-by');
+            const prevPageBtn = document.getElementById('prev-page');
+            const nextPageBtn = document.getElementById('next-page');
+            const pageInfo = document.getElementById('page-info');
+            const companyModal = document.getElementById('company-modal');
+            const closeModal = document.querySelector('.close-modal');
+            const closeBtn = document.querySelector('.btn-close');
+            const backToTop = document.getElementById('back-to-top');
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            const companiesCount = document.getElementById('companies-count');
+            const jobsCount = document.getElementById('jobs-count');
+            const candidatesCount = document.getElementById('candidates-count');
+            const successRate = document.getElementById('success-rate');
+
+            // Statistics animation
+            function animateStats() {
+                const targetCompanies = companies.length;
+                const targetJobs = companies.reduce((acc, company) => acc + company.jobs, 0);
+                const targetCandidates = 12500;
+                const targetRate = 92;
+                
+                const animate = (element, target) => {
+                    let current = 0;
+                    const increment = target / 50;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            clearInterval(timer);
+                            current = target;
+                        }
+                        if (element === successRate) {
+                            element.textContent = Math.floor(current) + '%';
+                        } else {
+                            element.textContent = Math.floor(current).toLocaleString();
+                        }
+                    }, 20);
+                };
+                
+                animate(companiesCount, targetCompanies);
+                animate(jobsCount, targetJobs);
+                animate(candidatesCount, targetCandidates);
+                animate(successRate, targetRate);
+            }
+
+            // Pagination variables
+            const itemsPerPage = 6;
+            let currentPage = 1;
+            let filteredCompanies = [...companies];
+
+            // Initialize the page
+            function init() {
+                renderCompanies();
+                setupEventListeners();
+                updatePagination();
+                animateStats();
+                
+                // Animate featured companies on scroll
+                const featuredCompanies = document.querySelectorAll('.featured-company');
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('animate__fadeIn');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                
+                featuredCompanies.forEach(company => {
+                    observer.observe(company);
+                });
+            }
+
+            // Render companies based on current filters and pagination
+            function renderCompanies() {
+                companiesContainer.innerHTML = '';
+                
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                const companiesToDisplay = filteredCompanies.slice(startIndex, endIndex);
+                
+                if (companiesToDisplay.length === 0) {
+                    companiesContainer.innerHTML = '<p class="no-results">No companies found matching your criteria.</p>';
+                    return;
+                }
+                
+                companiesToDisplay.forEach((company, index) => {
+                    const companyCard = document.createElement('div');
+                    companyCard.className = 'company-card';
+                    companyCard.style.animationDelay = `${index * 0.1}s`;
+                    companyCard.innerHTML = `
+                        <div class="company-logo">
+                            <img src="${company.logo}" alt="${company.name} Logo">
+                        </div>
+                        <div class="company-info">
+                            <h3 class="company-name">${company.name}</h3>
+                            <div class="company-rating">
+                                ${renderStars(company.rating)} <span>${company.rating.toFixed(1)}</span>
+                            </div>
+                            <div class="company-meta">
+                                <span><i class="fas fa-industry"></i> ${company.industry}</span>
+                                <span><i class="fas fa-users"></i> ${company.size} employees</span>
+                                <span><i class="fas fa-map-marker-alt"></i> ${company.location}</span>
+                            </div>
+                            <span class="company-jobs">${company.jobs} job openings</span>
+                            <a href="#" class="view-btn" data-id="${company.id}">View Company</a>
+                        </div>
+                    `;
+                    companiesContainer.appendChild(companyCard);
+                    
+                    // Add animation when card comes into view
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.style.opacity = 1;
+                                entry.target.style.transform = 'translateY(0)';
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    });
+                    
+                    companyCard.style.opacity = 0;
+                    companyCard.style.transform = 'translateY(20px)';
+                    companyCard.style.transition = 'all 0.5s ease-out';
+                    observer.observe(companyCard);
+                });
+                
+                // Add event listeners to view buttons
+                document.querySelectorAll('.view-btn').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const companyId = parseInt(this.getAttribute('data-id'));
+                        showCompanyModal(companyId);
+                    });
+                });
+            }
+
+            // Render star rating
+            function renderStars(rating) {
+                const fullStars = Math.floor(rating);
+                const hasHalfStar = rating % 1 >= 0.5;
+                let stars = '';
+                
+                for (let i = 0; i < fullStars; i++) {
+                    stars += '<i class="fas fa-star"></i>';
+                }
+                
+                if (hasHalfStar) {
+                    stars += '<i class="fas fa-star-half-alt"></i>';
+                }
+                
+                const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+                for (let i = 0; i < emptyStars; i++) {
+                    stars += '<i class="far fa-star"></i>';
+                }
+                
+                return stars;
+            }
+
+            // Show company modal with details
+            function showCompanyModal(companyId) {
+                const company = companies.find(c => c.id === companyId);
+                if (!company) return;
+                
+                document.getElementById('modal-company-name').textContent = company.name;
+                document.getElementById('modal-company-logo').src = company.logo;
+                document.getElementById('modal-company-logo').alt = `${company.name} Logo`;
+                document.getElementById('modal-company-rating').innerHTML = `
+                    ${renderStars(company.rating)} <span>(${company.rating.toFixed(1)})</span>
+                `;
+                document.getElementById('modal-company-industry').textContent = company.industry;
+                document.getElementById('modal-company-size').textContent = company.size + ' employees';
+                document.getElementById('modal-company-location').textContent = company.location;
+                document.getElementById('modal-company-about').textContent = company.about;
+                
+                const jobsContainer = document.getElementById('modal-company-jobs');
+                jobsContainer.innerHTML = '';
+                
+                company.jobOpenings.forEach(job => {
+                    const jobElement = document.createElement('div');
+                    jobElement.className = 'job-listing';
+                    jobElement.innerHTML = `
+                        <h4>${job.title}</h4>
+                        <div class="job-meta">
+                            <span>${job.type}</span>
+                            <span>${job.location}</span>
+                            ${job.salary ? `<span>${job.salary}</span>` : ''}
+                        </div>
+                        <div class="job-description">
+                            <p><strong>Description:</strong> ${job.description.substring(0, 100)}...</p>
+                            <p><strong>Requirements:</strong> ${job.requirements.substring(0, 100)}...</p>
+                        </div>
+                        <a href="job-detail.html?company=${companyId}&job=${encodeURIComponent(job.title)}">View Full Details <i class="fas fa-arrow-right"></i></a>
+                    `;
+                    jobsContainer.appendChild(jobElement);
+                });
+                
+                companyModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+
+            // Filter companies based on search and filter criteria
+            function filterCompanies() {
+                const searchTerm = companySearch.value.toLowerCase();
+                const industry = industryFilter.value;
+                const size = sizeFilter.value;
+                const location = locationFilter.value;
+                
+                filteredCompanies = companies.filter(company => {
+                    const matchesSearch = company.name.toLowerCase().includes(searchTerm) || 
+                                         company.industry.toLowerCase().includes(searchTerm);
+                    const matchesIndustry = industry ? company.industry === industry : true;
+                    const matchesSize = size ? company.size === size : true;
+                    const matchesLocation = location ? company.location === location : true;
+                    
+                    return matchesSearch && matchesIndustry && matchesSize && matchesLocation;
+                });
+                
+                // Apply sorting
+                sortCompanies();
+                
+                // Reset to first page
+                currentPage = 1;
+                updatePagination();
+                renderCompanies();
+            }
+
+            // Sort companies based on selected option
+            function sortCompanies() {
+                const sortValue = sortBy.value;
+                
+                filteredCompanies.sort((a, b) => {
+                    switch (sortValue) {
+                        case 'name-asc':
+                            return a.name.localeCompare(b.name);
+                        case 'name-desc':
+                            return b.name.localeCompare(a.name);
+                        case 'rating-desc':
+                            return b.rating - a.rating;
+                        case 'jobs-desc':
+                            return b.jobs - a.jobs;
+                        default:
+                            return 0;
+                    }
+                });
+            }
+
+            // Update pagination controls
+            function updatePagination() {
+                const totalPages = Math.ceil(filteredCompanies.length / itemsPerPage);
+                
+                pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+                prevPageBtn.disabled = currentPage === 1;
+                nextPageBtn.disabled = currentPage === totalPages || totalPages === 0;
+            }
+
+            // Show toast notification
+            function showToast(message) {
+                toastMessage.textContent = message;
+                toast.classList.add('visible');
+                
+                setTimeout(() => {
+                    toast.classList.remove('visible');
+                }, 3000);
+            }
+
+            // Set up event listeners
+            function setupEventListeners() {
+                // Search and filter events
+                companySearch.addEventListener('input', filterCompanies);
+                industryFilter.addEventListener('change', filterCompanies);
+                sizeFilter.addEventListener('change', filterCompanies);
+                locationFilter.addEventListener('change', filterCompanies);
+                sortBy.addEventListener('change', filterCompanies);
+                
+                // Pagination events
+                prevPageBtn.addEventListener('click', () => {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        updatePagination();
+                        renderCompanies();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                });
+                
+                nextPageBtn.addEventListener('click', () => {
+                    const totalPages = Math.ceil(filteredCompanies.length / itemsPerPage);
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        updatePagination();
+                        renderCompanies();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                });
+                
+                // Modal events
+                closeModal.addEventListener('click', () => {
+                    companyModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                });
+                
+                closeBtn.addEventListener('click', () => {
+                    companyModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                });
+                
+                window.addEventListener('click', (e) => {
+                    if (e.target === companyModal) {
+                        companyModal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+                
+                // Back to top button
+                window.addEventListener('scroll', () => {
+                    if (window.pageYOffset > 300) {
+                        backToTop.classList.add('visible');
+                    } else {
+                        backToTop.classList.remove('visible');
+                    }
+                });
+                
+                backToTop.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+                
+                // Job posting form
+                const postJobForm = document.getElementById('post-job-form');
+                
+                postJobForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Get form values
+                    const companyId = parseInt(document.getElementById('job-company').value);
+                    const company = companies.find(c => c.id === companyId);
+                    const jobTitle = document.getElementById('job-title').value;
+                    const jobType = document.getElementById('job-type').value;
+                    const jobLocation = document.getElementById('job-location').value;
+                    const jobSalary = document.getElementById('job-salary').value;
+                    const jobDescription = document.getElementById('job-description').value;
+                    const jobRequirements = document.getElementById('job-requirements').value;
+                    
+                    if (!company) {
+                        showToast('Please select a valid company');
+                        return;
+                    }
+                    
+                    // Create new job object
+                    const newJob = {
+                        title: jobTitle,
+                        type: jobType,
+                        location: jobLocation,
+                        salary: jobSalary,
+                        description: jobDescription,
+                        requirements: jobRequirements
+                    };
+                    
+                    // Add to company's job openings
+                    company.jobOpenings.push(newJob);
+                    company.jobs = company.jobOpenings.length;
+                    
+                    // Update the display
+                    filterCompanies();
+                    
+                    // Reset form
+                    postJobForm.reset();
+                    
+                    // Show success message
+                    showToast('Job posted successfully!');
+                    
+                    // If viewing this company's modal, refresh it
+                    const modalCompanyName = document.getElementById('modal-company-name').textContent;
+                    if (modalCompanyName === company.name) {
+                        showCompanyModal(company.id);
+                    }
+                });
+            }
+
+            // Initialize the page
+            init();
+        });
+    </script>
+</body>
+</html>
