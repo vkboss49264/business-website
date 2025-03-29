@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post | JobFinder</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #2c3e50;
+            --accent: #f39c12;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+            --light-gray: #f5f7fa;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f9f9f9;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo h1 {
+            margin: 0;
+            color: var(--secondary);
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .logo h1 a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            position: relative;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
+            width: 100%;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-login {
+            background-color: var(--primary);
+            color: white !important;
+        }
+        
+        .btn-login:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        /* Blog Post Styles */
+        .blog-post-container {
+            padding: 60px 0;
+        }
+        
+        .blog-post-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .post-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .post-meta span {
+            display: flex;
+            align-items: center;
+            margin: 0 15px;
+        }
+        
+        .post-meta i {
+            margin-right: 5px;
+            color: var(--primary);
+        }
+        
+        .post-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .featured-image {
+            height: 500px;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .post-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .post-content p {
+            margin-bottom: 25px;
+        }
+        
+        .post-content h2 {
+            font-size: 1.8rem;
+            margin: 40px 0 20px;
+            color: var(--secondary);
+        }
+        
+        .post-content h3 {
+            font-size: 1.4rem;
+            margin: 30px 0 15px;
+            color: var(--secondary);
+        }
+        
+        .post-content blockquote {
+            border-left: 4px solid var(--primary);
+            padding-left: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            color: var(--gray);
+        }
+        
+        .post-content ul, .post-content ol {
+            margin-bottom: 25px;
+            padding-left: 20px;
+        }
+        
+        .post-content li {
+            margin-bottom: 10px;
+        }
+        
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 40px 0;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 5px 15px;
+            background-color: var(--light-gray);
+            color: var(--dark);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .tag:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .author-box {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 60px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .author-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 30px;
+        }
+        
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+        
+        .author-info p {
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            background-color: var(--light-gray);
+            color: var(--dark);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .back-to-blog {
+            display: inline-block;
+            margin-top: 40px;
+            color: var(--primary);
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .back-to-blog:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+        
+        .back-to-blog i {
+            margin-right: 5px;
+            transition: transform 0.3s ease;
+        }
+        
+        .back-to-blog:hover i {
+            transform: translateX(-3px);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 60px 0 0;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        .footer-section p {
+            opacity: 0.8;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-section ul li a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+        }
+        
+        .footer-section ul li a:hover {
+            color: var(--primary);
+            opacity: 1;
+            padding-left: 5px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding: 25px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 15px;
+            }
+            
+            .post-title {
+                font-size: 2rem;
+            }
+            
+            .featured-image {
+                height: 300px;
+            }
+            
+            .author-box {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .author-avatar {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1><a href="index.html">JobFinder</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="jobs.html">Jobs</a></li>
+                    <li><a href="companies.html">Companies</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="login.html" class="btn-login">Login/Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="blog-post-container">
+        <div class="container">
+            <div class="blog-post-header">
+                <div class="post-meta">
+                    <span><i class="far fa-calendar-alt"></i> June 15, 2023</span>
+                    <span><i class="far fa-user"></i> By Sarah Johnson</span>
+                    <span><i class="far fa-folder"></i> Career Advice</span>
+                </div>
+                <h1 class="post-title" id="post-title">10 Resume Tips That Will Get You Noticed</h1>
+            </div>
+            
+            <div class="featured-image">
+                <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Resume Tips" id="post-image">
+            </div>
+            
+            <div class="post-content" id="post-content">
+                <p>Your resume is often the first impression you make on a potential employer, and in today's competitive job market, it needs to stand out from the crowd. Whether you're a recent graduate or a seasoned professional, these resume tips will help you craft a document that gets noticed and lands you interviews.</p>
+                
+                <h2>1. Tailor Your Resume for Each Job</h2>
+                <p>Gone are the days of sending the same generic resume to every job opening. Employers can spot a mass-produced resume from a mile away. Instead, carefully review the job description and customize your resume to highlight the skills and experiences most relevant to that specific position.</p>
+                
+                <blockquote>
+                    "The most effective resumes are those that speak directly to the needs of the employer, not those that list everything the candidate has ever done." - Jane Smith, HR Director at TechCorp
+                </blockquote>
+                
+                <h2>2. Start With a Strong Summary</h2>
+                <p>Replace the outdated "objective" statement with a compelling professional summary. In 3-4 sentences, showcase your most impressive achievements, skills, and what you bring to the table. Think of it as your elevator pitch in written form.</p>
+                
+                <h2>3. Focus on Achievements, Not Just Duties</h2>
+                <p>Instead of simply listing your job responsibilities, highlight your accomplishments. Use numbers and metrics whenever possible to quantify your impact. For example:</p>
+                
+                <ul>
+                    <li>Increased sales by 35% in Q2 2022 through targeted outreach campaigns</li>
+                    <li>Reduced customer service response time from 48 hours to 6 hours</li>
+                    <li>Managed a team of 12 developers to deliver project 3 weeks ahead of schedule</li>
+                </ul>
+                
+                <h2>4. Optimize for Applicant Tracking Systems (ATS)</h2>
+                <p>Many companies use ATS software to screen resumes before they ever reach human eyes. To get past these systems:</p>
+                
+                <ol>
+                    <li>Use standard headings (like "Work Experience" instead of "Where I've Worked")</li>
+                    <li>Incorporate keywords from the job description</li>
+                    <li>Avoid graphics, tables, or unusual formatting</li>
+                    <li>Save as a Word document or PDF (unless specified otherwise)</li>
+                </ol>
+                
+                <h2>5. Keep It Concise</h2>
+                <p>Unless you're a senior executive with decades of experience, your resume should typically be one page. Be ruthless in editing out irrelevant information. Recent graduates should remove high school experiences, and mid-career professionals can condense or remove early career positions.</p>
+                
+                <h2>6. Use Action Verbs</h2>
+                <p>Start each bullet point with a strong action verb that demonstrates your initiative and impact. Some powerful examples include:</p>
+                
+                <ul>
+                    <li>Spearheaded</li>
+                    <li>Transformed</li>
+                    <li>Optimized</li>
+                    <li>Pioneered</li>
+                    <li>Mentored</li>
+                </ul>
+                
+                <h2>7. Highlight Relevant Skills</h2>
+                <p>Create a dedicated skills section that showcases both hard and soft skills relevant to the position. For technical roles, be specific about programming languages, tools, and platforms you're proficient in.</p>
+                
+                <h2>8. Include Relevant Certifications and Training</h2>
+                <p>If you've completed certifications, courses, or training programs that are relevant to the job, include them in a separate section. This is especially important in fields like IT, healthcare, and project management.</p>
+                
+                <h2>9. Pay Attention to Design and Readability</h2>
+                <p>While content is king, presentation matters too. Ensure your resume is:</p>
+                
+                <ul>
+                    <li>Clean and professional-looking</li>
+                    <li>Consistent in formatting (font sizes, bullet styles, etc.)</li>
+                    <li>Easy to scan quickly (most recruiters spend only 6-10 seconds on an initial review)</li>
+                </ul>
+                
+                <h2>10. Proofread, Then Proofread Again</h2>
+                <p>Nothing undermines your professionalism faster than typos or grammatical errors. After you've proofread your resume yourself, have at least two other people review it. Consider reading it aloud to catch awkward phrasing.</p>
+                
+                <p>By implementing these resume tips, you'll create a document that not only gets past automated systems but also makes a strong impression on hiring managers. Remember, your resume isn't just a history of your work - it's a marketing document designed to sell your most valuable product: you.</p>
+                
+                <div class="post-tags">
+                    <a href="#" class="tag">Resume</a>
+                    <a href="#" class="tag">Job Search</a>
+                    <a href="#" class="tag">Career Advice</a>
+                    <a href="#" class="tag">Interview</a>
+                </div>
+                
+                <div class="author-box">
+                    <div class="author-avatar">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson">
+                    </div>
+                    <div class="author-info">
+                        <h4>Sarah Johnson</h4>
+                        <p>Career Coach and Resume Expert with over 10 years of experience helping professionals land their dream jobs. Sarah has reviewed thousands of resumes and conducted hundreds of mock interviews.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-globe"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="blog.html" class="back-to-blog"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>JobFinder</h3>
+                    <p>Connecting top talent with leading companies worldwide. Our platform makes hiring and job searching efficient and effective.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="jobs.html">Browse Jobs</a></li>
+                        <li><a href="companies.html">Companies</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Career Advice</a></li>
+                        <li><a href="#">Resume Tips</a></li>
+                        <li><a href="#">Interview Prep</a></li>
+                        <li><a href="#">Salary Calculator</a></li>
+                        <li><a href="#">Company Reviews</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p><i class="fas fa-envelope"></i> info@jobfinder.com</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Career Lane, Suite 100<br>San Francisco, CA 94107</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 JobFinder. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the blog post data from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const postId = urlParams.get('id');
+            
+            // Sample blog post data (in a real app, this would come from a database)
+            const blogPosts = {
+                'resume-tips': {
+                    title: '10 Resume Tips That Will Get You Noticed',
+                    date: 'June 15, 2023',
+                    author: 'Sarah Johnson',
+                    category: 'Career Advice',
+                    image: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                    content: document.getElementById('post-content').innerHTML
+                },
+                'interview-guide': {
+                    title: 'The Ultimate Guide to Acing Your Next Job Interview',
+                    date: 'June 8, 2023',
+                    author: 'Michael Chen',
+                    category: 'Interview Tips',
+                    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                    content: `
+                        <p>Job interviews can be nerve-wracking, but with the right preparation, you can approach them with confidence. This comprehensive guide covers everything you need to know to ace your next interview.</p>
+                        
+                        <h2>1. Research the Company Thoroughly</h2>
+                        <p>Before your interview, spend time researching the company. Visit their website, read recent news articles, and check their social media profiles. Understand their mission, values, products, and competitors.</p>
+                        
+                        <h2>2. Practice Common Interview Questions</h2>
+                        <p>While you can't predict every question, you can prepare for common ones like:</p>
+                        <ul>
+                            <li>"Tell me about yourself"</li>
+                            <li>"What are your strengths and weaknesses?"</li>
+                            <li>"Why do you want to work here?"</li>
+                            <li>"Where do you see yourself in 5 years?"</li>
+                        </ul>
+                        
+                        <h2>3. Prepare Your Own Questions</h2>
+                        <p>At the end of most interviews, you'll be asked if you have any questions. Prepare thoughtful questions that show your interest in the role and company.</p>
+                        
+                        <div class="post-tags">
+                            <a href="#" class="tag">Interview</a>
+                            <a href="#" class="tag">Career Advice</a>
+                            <a href="#" class="tag">Job Search</a>
+                        </div>
+                    `
+                },
+                'remote-work': {
+                    title: 'How to Thrive in a Remote Work Environment',
+                    date: 'June 1, 2023',
+                    author: 'David Wilson',
+                    category: 'Workplace Trends',
+                    image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                    content: `
+                        <p>Remote work has become the new normal for many professionals. While it offers flexibility, it also presents unique challenges. Here's how to thrive in a remote work environment.</p>
+                        
+                        <h2>1. Create a Dedicated Workspace</h2>
+                        <p>Set up a comfortable, distraction-free area in your home specifically for work. This helps create mental separation between work and personal life.</p>
+                        
+                        <h2>2. Maintain a Routine</h2>
+                        <p>Stick to regular working hours and include breaks. Start your day as if you were going to the office - shower, get dressed, and have breakfast before logging on.</p>
+                        
+                        <div class="post-tags">
+                            <a href="#" class="tag">Remote Work</a>
+                            <a href="#" class="tag">Productivity</a>
+                            <a href="#" class="tag">Workplace</a>
+                        </div>
+                    `
+                }
+            };
+            
+            // Load the requested blog post
+            if (postId && blogPosts[postId]) {
+                const post = blogPosts[postId];
+                document.getElementById('post-title').textContent = post.title;
+                document.getElementById('post-image').src = post.image;
+                document.getElementById('post-image').alt = post.title;
+                
+                // Update meta information
+                document.querySelector('.post-meta span:nth-child(1)').innerHTML = `<i class="far fa-calendar-alt"></i> ${post.date}`;
+                document.querySelector('.post-meta span:nth-child(2)').innerHTML = `<i class="far fa-user"></i> By ${post.author}`;
+                document.querySelector('.post-meta span:nth-child(3)').innerHTML = `<i class="far fa-folder"></i> ${post.category}`;
+                
+                // Update content
+                document.getElementById('post-content').innerHTML = post.content;
+                
+                // Update author box if needed
+                if (post.author === 'Sarah Johnson') {
+                    // Keep the existing author box
+                } else {
+                    document.querySelector('.author-box').innerHTML = `
+                        <div class="author-avatar">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="${post.author}">
+                        </div>
+                        <div class="author-info">
+                            <h4>${post.author}</h4>
+                            <p>${post.author} is a ${post.category.toLowerCase()} expert with years of experience in the field.</p>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fas fa-globe"></i></a>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+            
+            // Update page title
+            document.title = document.getElementById('post-title').textContent + ' | JobFinder Blog';
+        });
+    </script>
+</body>
+</html>
