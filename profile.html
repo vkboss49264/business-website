@@ -1,1 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Profile | CareerConnect</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Create your professional profile on CareerConnect to get discovered by top employers and apply for jobs faster.">
+    <meta name="keywords" content="job profile, career profile, professional profile, job seeker profile">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#f59e0b',
+                        dark: '#1e293b',
+                        light: '#f8fafc',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .skill-tag {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .skill-tag button {
+            margin-left: 0.5rem;
+            opacity: 0.7;
+        }
+        .skill-tag button:hover {
+            opacity: 1;
+        }
+        #avatar-upload {
+            display: none;
+        }
+        .avatar-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .avatar-preview:hover {
+            border-color: #f59e0b;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="font-sans bg-gradient-to-br from-blue-900 to-purple-900 text-white min-h-screen flex flex-col">
+    <!-- Navigation -->
+    <nav class="glass mx-4 mt-4 rounded-xl p-4 flex justify-between items-center">
+        <a href="index.html" class="text-2xl font-bold flex items-center">
+            <i class="fas fa-briefcase mr-2 text-secondary"></i>
+            <span>CareerConnect</span>
+        </a>
+        
+        <div class="hidden lg:flex space-x-8">
+            <a href="jobs.html" class="hover:text-secondary transition">Browse Jobs</a>
+            <a href="employers.html" class="hover:text-secondary transition">For Employers</a>
+            <a href="about.html" class="hover:text-secondary transition">About</a>
+            <a href="contact.html" class="hover:text-secondary transition">Contact</a>
+        </div>
+        
+        <div class="hidden lg:flex space-x-4">
+            <a href="login.html" class="px-4 py-2 rounded-lg hover:bg-white hover:bg-opacity-10 transition">Login</a>
+            <a href="register.html" class="bg-secondary text-dark px-4 py-2 rounded-lg hover:bg-opacity-90 transition">Register</a>
+        </div>
+        
+        <button id="menu-toggle" class="lg:hidden text-2xl focus:outline-none">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden glass mx-4 mt-2 rounded-xl p-4 lg:hidden">
+        <a href="jobs.html" class="block py-2 hover:text-secondary transition">Browse Jobs</a>
+        <a href="employers.html" class="block py-2 hover:text-secondary transition">For Employers</a>
+        <a href="about.html" class="block py-2 hover:text-secondary transition">About</a>
+        <a href="contact.html" class="block py-2 hover:text-secondary transition">Contact</a>
+        <div class="mt-4 pt-4 border-t border-white border-opacity-20">
+            <a href="login.html" class="block py-2 text-center hover:text-secondary transition">Login</a>
+            <a href="register.html" class="block mt-2 bg-secondary text-dark py-2 text-center rounded-lg hover:bg-opacity-90 transition">Register</a>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-12">
+        <div class="max-w-4xl mx-auto">
+            <!-- Page Header -->
+            <div class="text-center mb-12 animate-fade-in">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Create Your Profile</h1>
+                <p class="text-xl opacity-90 max-w-2xl mx-auto">Build your professional profile to get discovered by employers</p>
+            </div>
+            
+            <!-- Profile Form -->
+            <div class="glass p-8 rounded-xl animate-fade-in" style="animation-delay: 0.2s;">
+                <form id="profile-form">
+                    <!-- Personal Information -->
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-bold mb-6 border-b border-white border-opacity-20 pb-2">
+                            <i class="fas fa-user mr-2"></i>Personal Information
+                        </h2>
+                        
+                        <div class="flex flex-col md:flex-row gap-6 mb-6">
+                            <div class="flex flex-col items-center">
+                                <label for="avatar-upload" class="mb-2">
+                                    <img id="avatar-preview" src="https://via.placeholder.com/120x120?text=Upload+Photo" alt="Profile Photo" class="avatar-preview">
+                                </label>
+                                <input type="file" id="avatar-upload" accept="image/*">
+                                <button type="button" onclick="document.getElementById('avatar-upload').click()" class="text-sm text-secondary mt-2 hover:underline">
+                                    Change Photo
+                                </button>
+                            </div>
+                            
+                            <div class="flex-1 grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="first-name" class="block mb-2 font-medium">First Name *</label>
+                                    <input type="text" id="first-name" required 
+                                           class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                                </div>
+                                <div>
+                                    <label for="last-name" class="block mb-2 font-medium">Last Name *</label>
+                                    <input type="text" id="last-name" required 
+                                           class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                                </div>
+                                <div>
+                                    <label for="email" class="block mb-2 font-medium">Email *</label>
+                                    <input type="email" id="email" required 
+                                           class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                                </div>
+                                <div>
+                                    <label for="phone" class="block mb-2 font-medium">Phone</label>
+                                    <input type="tel" id="phone" 
+                                           class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label for="location" class="block mb-2 font-medium">Location *</label>
+                                    <input type="text" id="location" required 
+                                           class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Professional Information -->
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-bold mb-6 border-b border-white border-opacity-20 pb-2">
+                            <i class="fas fa-briefcase mr-2"></i>Professional Information
+                        </h2>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="headline" class="block mb-2 font-medium">Professional Headline *</label>
+                                <input type="text" id="headline" placeholder="e.g. Frontend Developer" required 
+                                       class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                            </div>
+                            <div>
+                                <label for="current-position" class="block mb-2 font-medium">Current Position</label>
+                                <input type="text" id="current-position" placeholder="e.g. Software Engineer at Tech Corp" 
+                                       class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label for="summary" class="block mb-2 font-medium">Professional Summary *</label>
+                                <textarea id="summary" rows="4" required 
+                                          class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Skills -->
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-bold mb-6 border-b border-white border-opacity-20 pb-2">
+                            <i class="fas fa-code mr-2"></i>Skills
+                        </h2>
+                        
+                        <div class="mb-4">
+                            <label for="skills-input" class="block mb-2 font-medium">Add Your Skills *</label>
+                            <div class="flex">
+                                <input type="text" id="skills-input" placeholder="e.g. JavaScript, React, UI/UX Design" 
+                                       class="flex-1 px-4 py-3 rounded-l-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                                <button type="button" id="add-skill-btn" class="px-4 bg-secondary text-dark rounded-r-lg hover:bg-opacity-90 transition">
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div id="skills-container" class="flex flex-wrap min-h-12 p-2 rounded-lg bg-white bg-opacity-5">
+                            <!-- Skills will be added here dynamically -->
+                            <span class="text-sm opacity-70">No skills added yet</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Experience -->
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-bold mb-6 border-b border-white border-opacity-20 pb-2">
+                            <i class="fas fa-building mr-2"></i>Work Experience
+                        </h2>
+                        
+                        <div id="experience-container">
+                            <!-- Experience entries will be added here -->
+                            <div class="experience-entry glass p-4 rounded-lg mb-4">
+                                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                                    <div>
+                                        <label class="block mb-2 font-medium">Job Title *</label>
+                                        <input type="text" name="exp-title[]" required 
+                                               class="w-full px-4 py-2 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                                    </div>
+                                    <div>
+                                        <label class="block mb-2 font-medium">Company *</label>
+                                        <input type="text" name="exp-company[]" required 
+                                               class="w-full px-4 py-2 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                                    </div>
+                                    <div>
+                                        <label class="block mb-2 font-medium">Start Date *</label>
+                                        <input type="month" name="exp-start[]" required 
+                                               class="w-full px-4 py-2 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                                    </div>
+                                    <div>
+                                        <label class="block mb-2 font-medium">End Date</label>
+                                        <input type="month" name="exp-end[]" 
+                                               class="w-full px-4 py-2 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                                        <label class="flex items-center mt-2">
+                                            <input type="checkbox" name="exp-current[]" class="mr-2"> I currently work here
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block mb-2 font-medium">Description</label>
+                                    <textarea name="exp-description[]" rows="3" 
+                                              class="w-full px-4 py-2 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary"></textarea>
+                                </div>
+                                <button type="button" class="remove-exp-btn text-red-400 hover:text-red-300 text-sm">
+                                    <i class="fas fa-trash mr-1"></i> Remove Experience
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <button type="button" id="add-experience-btn" class="px-4 py-2 rounded-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition">
+                            <i class="fas fa-plus mr-2"></i> Add Another Experience
+                        </button>
+                    </div>
+                    
+                    <!-- Education -->
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-bold mb-6 border-b border-white border-opacity-20 pb-2">
+                            <i class="fas fa-graduation-cap mr-2"></i>Education
+                        </h2>
+                        
+                        <div id="education-container">
+                            <!-- Education entries will be added here -->
+                            <div class="education-entry glass p-4 rounded-lg mb-4">
+                                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                                    <div>
+                                        <label class="block mb-2 font-medium">Degree *</label>
+                                        <input type="text" name="edu-degree[]" required 
+                                               class="w-full px-4 py-2 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                                    </div>
+                                    <div>
+                                        <label class="block mb-2 font-medium">Institution *</label>
+                                        <input type="text" name="edu-school[]" required 
+                                               class="w-full px-4 py-2 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                                    </div>
+                                    <div>
+                                        <label class="block mb-2 font-medium">Field of Study</label>
+                                        <input type="text" name="edu-field[]" 
+                                               class="w-full px-4 py-2 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                                    </div>
+                                    <div>
+                                        <label class="block mb-2 font-medium">Graduation Year *</label>
+                                        <input type="month" name="edu-end[]" required 
+                                               class="w-full px-4 py-2 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                                    </div>
+                                </div>
+                                <button type="button" class="remove-edu-btn text-red-400 hover:text-red-300 text-sm">
+                                    <i class="fas fa-trash mr-1"></i> Remove Education
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <button type="button" id="add-education-btn" class="px-4 py-2 rounded-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition">
+                            <i class="fas fa-plus mr-2"></i> Add Another Education
+                        </button>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <div class="flex justify-center">
+                        <button type="submit" class="bg-secondary text-dark font-bold py-3 px-8 rounded-lg hover:bg-opacity-90 transition transform hover:scale-105">
+                            <i class="fas fa-save mr-2"></i>Save Profile
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="glass mx-4 mb-4 rounded-xl p-6">
+        <div class="grid md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-lg font-bold mb-4">CareerConnect</h3>
+                <p class="opacity-80">Connecting talented professionals with great companies worldwide.</p>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-bold mb-4">For Job Seekers</h3>
+                <ul class="space-y-2">
+                    <li><a href="jobs.html" class="opacity-80 hover:text-secondary transition">Browse Jobs</a></li>
+                    <li><a href="profile.html" class="opacity-80 hover:text-secondary transition">Create Profile</a></li>
+                    <li><a href="#" class="opacity-80 hover:text-secondary transition">Career Resources</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-bold mb-4">Contact</h3>
+                <ul class="space-y-2">
+                    <li><a href="mailto:vishalkumar049263@gmail.com" class="opacity-80 hover:text-secondary transition">Email Us</a></li>
+                    <li><a href="tel:+918789297252" class="opacity-80 hover:text-secondary transition">+91 8789297252</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="mt-8 pt-8 border-t border-white border-opacity-20 text-center opacity-80">
+            <p>&copy; <span id="current-year"></span> CareerConnect. All rights reserved.</p>
+        </div>
+    </footer>
 
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Avatar Upload Preview
+        document.getElementById('avatar-upload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    document.getElementById('avatar-preview').src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Skills Management
+        const skillsInput = document.getElementById('skills-input');
+        const addSkillBtn = document.getElementById('add-skill-btn');
+        const skillsContainer = document.getElementById('skills-container');
+        
+        addSkillBtn.addEventListener('click', function() {
+            const skills = skillsInput.value.split(',').map(skill => skill.trim()).filter(skill => skill);
+            
+            if (skills.length > 0) {
+                skillsContainer.innerHTML = ''; // Clear "no skills" message
+                
+                skills.forEach(skill => {
+                    const skillTag = document.createElement('div');
+                    skillTag.className = 'skill-tag';
+                    skillTag.innerHTML = `
+                        ${skill}
+                        <button type="button" onclick="this.parentElement.remove()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <input type="hidden" name="skills[]" value="${skill}">
+                    `;
+                    skillsContainer.appendChild(skillTag);
+                });
+                
+                skillsInput.value = '';
+            }
+        });
+
+        // Experience Management
+        const experienceContainer = document.getElementById('experience-container');
+        const addExperienceBtn = document.getElementById('add-experience-btn');
+        
+        addExperienceBtn.addEventListener('click', function() {
+            const newExp = document.createElement('div');
+            newExp.className = 'experience-entry glass p-4 rounded-lg mb-4';
+            newExp.innerHTML = `
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block mb-2 font-medium">Job Title *</label>
+                        <input type="text" name="exp-title[]" required 
+                               class="w-full px-4 py-2 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-medium">Company *</label>
+                        <input type="text" name="exp-company[]" required 
+                               class="w-full px-4 py-2 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-medium">Start Date *</label>
+                        <input type="month" name="exp-start[]" required 
+                               class="w-full px-4 py-2 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-medium">End Date</label>
+                        <input type="month" name="exp-end[]" 
+                               class="w-full px-4 py-2 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                        <label class="flex items-center mt-2">
+                            <input type="checkbox" name="exp-current[]" class="mr-2"> I currently work here
+                        </label>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block mb-2 font-medium">Description</label>
+                    <textarea name="exp-description[]" rows="3" 
+                              class="w-full px-4 py-2 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary"></textarea>
+                </div>
+                <button type="button" class="remove-exp-btn text-red-400 hover:text-red-300 text-sm">
+                    <i class="fas fa-trash mr-1"></i> Remove Experience
+                </button>
+            `;
+            experienceContainer.appendChild(newExp);
+            
+            // Add event listener to new remove button
+            newExp.querySelector('.remove-exp-btn').addEventListener('click', function() {
+                this.closest('.experience-entry').remove();
+            });
+        });
+
+        // Education Management
+        const educationContainer = document.getElementById('education-container');
+        const addEducationBtn = document.getElementById('add-education-btn');
+        
+        addEducationBtn.addEventListener('click', function() {
+            const newEdu = document.createElement('div');
+            newEdu.className = 'education-entry glass p-4 rounded-lg mb-4';
+            newEdu.innerHTML = `
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block mb-2 font-medium">Degree *</label>
+                        <input type="text" name="edu-degree[]" required 
+                               class="w-full px-4 py-2 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-medium">Institution *</label>
+                        <input type="text" name="edu-school[]" required 
+                               class="w-full px-4 py-2 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-medium">Field of Study</label>
+                        <input type="text" name="edu-field[]" 
+                               class="w-full px-4 py-2 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-medium">Graduation Year *</label>
+                        <input type="month" name="edu-end[]" required 
+                               class="w-full px-4 py-2 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 focus:outline-none focus:ring-2 focus:ring-secondary">
+                    </div>
+                </div>
+                <button type="button" class="remove-edu-btn text-red-400 hover:text-red-300 text-sm">
+                    <i class="fas fa-trash mr-1"></i> Remove Education
+                </button>
+            `;
+            educationContainer.appendChild(newEdu);
+            
+            // Add event listener to new remove button
+            newEdu.querySelector('.remove-edu-btn').addEventListener('click', function() {
+                this.closest('.education-entry').remove();
+            });
+        });
+
+        // Form Submission
+        document.getElementById('profile-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Saving...';
+            
+            // Simulate form submission
+            setTimeout(() => {
+                // Show success state
+                submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Profile Saved!';
+                
+                // In a real application, you would:
+                // 1. Collect all form data
+                // 2. Send to your backend API
+                // 3. Handle response/errors
+                
+                // Reset after 3 seconds
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                    
+                    // Redirect to profile view page
+                    window.location.href = 'my-profile.html';
+                }, 2000);
+            }, 2000);
+        });
+
+        // Initialize remove buttons for first experience/education entries
+        document.querySelectorAll('.remove-exp-btn, .remove-edu-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Don't allow removing the last entry
+                if (this.classList.contains('remove-exp-btn') && 
+                    document.querySelectorAll('.experience-entry').length > 1) {
+                    this.closest('.experience-entry').remove();
+                } else if (this.classList.contains('remove-edu-btn') && 
+                          document.querySelectorAll('.education-entry').length > 1) {
+                    this.closest('.education-entry').remove();
+                } else {
+                    alert('You must have at least one entry');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
