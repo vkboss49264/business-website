@@ -3,158 +3,959 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog | Job Portal</title>
+    <title>Career Insights & Job Search Tips | JobFinder Blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        :root {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #2c3e50;
+            --accent: #f39c12;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+            --light-gray: #f5f7fa;
+        }
+        
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            background: linear-gradient(45deg, #ff00ff, #ff7300, #00ff99);
-            animation: gradientBG 10s infinite alternate ease-in-out;
-            color: white;
-            text-align: center;
         }
         
-        header {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            font-size: 24px;
-            font-weight: bold;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f9f9f9;
         }
         
-        #blog-form {
-            background: rgba(255, 255, 255, 0.15);
-            margin: 20px auto;
-            padding: 20px;
-            border-radius: 10px;
+        .container {
             width: 90%;
-            max-width: 600px;
-            backdrop-filter: blur(10px);
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
-        input, textarea {
+        /* Header Styles */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo h1 {
+            margin: 0;
+            color: var(--secondary);
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .logo h1 a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            position: relative;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
             width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            border: none;
-            border-radius: 5px;
         }
         
-        button {
-            margin-top: 10px;
-            padding: 10px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            background: linear-gradient(90deg, #ff0000, #ff7300);
+        .btn {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-login {
+            background-color: var(--primary);
+            color: white !important;
+        }
+        
+        .btn-login:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        /* Blog Hero */
+        .blog-hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .blog-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .blog-hero .container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .blog-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .blog-hero p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            animation: fadeIn 0.8s ease-out 0.2s both;
+        }
+        
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            animation: fadeIn 0.8s ease-out 0.4s both;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-box button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-box button:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        /* Blog Layout */
+        .blog-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+            padding: 60px 0;
+        }
+        
+        /* Main Content */
+        .blog-posts {
+            display: grid;
+            gap: 40px;
         }
         
         .blog-post {
-            background: rgba(255, 255, 255, 0.2);
-            margin: 20px auto;
-            padding: 15px;
+            background: white;
             border-radius: 10px;
-            width: 90%;
-            max-width: 600px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .like-btn, .comment-btn {
-            cursor: pointer;
-            margin: 5px;
-            font-size: 18px;
+        
+        .blog-post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
-        .profile-pic {
+        
+        .post-image {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .blog-post:hover .post-image img {
+            transform: scale(1.05);
+        }
+        
+        .post-content {
+            padding: 30px;
+        }
+        
+        .post-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .post-meta span {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+        
+        .post-meta i {
+            margin-right: 5px;
+            color: var(--primary);
+        }
+        
+        .post-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+        
+        .post-excerpt {
+            margin-bottom: 20px;
+            color: var(--dark);
+            line-height: 1.7;
+        }
+        
+        .read-more {
+            display: inline-block;
+            color: var(--primary);
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .read-more:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+        
+        .read-more i {
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+        }
+        
+        .read-more:hover i {
+            transform: translateX(3px);
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        
+        .pagination a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 40px;
             height: 40px;
+            margin: 0 5px;
             border-radius: 50%;
-            object-fit: cover;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
         }
-        .comments-section {
-            display: none;
+        
+        .pagination a:hover, .pagination a.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            display: grid;
+            gap: 30px;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .sidebar-widget {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .widget-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-gray);
+            position: relative;
+        }
+        
+        .widget-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        .categories-list {
+            list-style: none;
+        }
+        
+        .categories-list li {
+            margin-bottom: 10px;
+        }
+        
+        .categories-list a {
+            display: block;
+            padding: 8px 0;
+            color: var(--dark);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .categories-list a::before {
+            content: '\f054';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 10px;
+            font-size: 0.7rem;
+            color: var(--primary);
+            transition: transform 0.3s ease;
+        }
+        
+        .categories-list a:hover {
+            color: var(--primary);
+        }
+        
+        .categories-list a:hover::before {
+            transform: translateX(3px);
+        }
+        
+        .popular-posts {
+            list-style: none;
+        }
+        
+        .popular-post {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .popular-post:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .popular-post img {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 15px;
+        }
+        
+        .popular-post-content h4 {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .popular-post-content a {
+            color: var(--dark);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .popular-post-content a:hover {
+            color: var(--primary);
+        }
+        
+        .popular-post-content span {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 5px 15px;
+            background-color: var(--light-gray);
+            color: var(--dark);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .tag:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Newsletter */
+        .newsletter-form {
+            margin-top: 20px;
+        }
+        
+        .newsletter-form input {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .newsletter-form button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .newsletter-form button:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 60px 0 0;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        .footer-section p {
+            opacity: 0.8;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-section ul li a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+        }
+        
+        .footer-section ul li a:hover {
+            color: var(--primary);
+            opacity: 1;
+            padding-left: 5px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding: 25px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-5px);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 15px;
+            }
+            
+            .blog-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .blog-hero p {
+                font-size: 1.1rem;
+            }
+            
+            .sidebar {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .blog-hero {
+                padding: 80px 0;
+            }
+            
+            .blog-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .post-title {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <header>🌟 Blog - Share Your Thoughts 🌟</header>
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
 
-    <section id="blog-form">
-        <h2>📝 Write a New Blog</h2>
-        <input type="file" id="profile-pic-input" accept="image/*">
-        <input type="text" id="blog-title" placeholder="Enter blog title" required>
-        <textarea id="blog-content" placeholder="Write your blog here..." required></textarea>
-        <button onclick="submitBlog()">🚀 Post Blog</button>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1><a href="index.html">JobFinder</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="jobs.html">Jobs</a></li>
+                    <li><a href="companies.html">Companies</a></li>
+                    <li><a href="blog.html" class="active">Blog</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="login.html" class="btn-login">Login/Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="blog-hero">
+        <div class="container">
+            <h1>Career Insights & Job Search Tips</h1>
+            <p>Discover valuable advice, industry trends, and expert tips to boost your career</p>
+            <div class="search-box">
+                <input type="text" placeholder="Search blog posts...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+        </div>
     </section>
 
-    <section id="blog-posts">
-        <h2>📢 Latest Blogs</h2>
-        <div id="posts-container"></div>
-    </section>
+    <div class="container">
+        <div class="blog-container">
+            <main class="blog-posts">
+                <article class="blog-post animate__animated animate__fadeIn">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Resume Tips">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar-alt"></i> June 15, 2023</span>
+                            <span><i class="far fa-user"></i> By Sarah Johnson</span>
+                            <span><i class="far fa-folder"></i> Career Advice</span>
+                        </div>
+                        <h2 class="post-title">10 Resume Tips That Will Get You Noticed</h2>
+                        <p class="post-excerpt">Learn how to craft a resume that stands out from the competition with these expert tips. From formatting to powerful action verbs, we cover everything you need to get noticed by recruiters...</p>
+                        <a href="post.html?id=resume-tips" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                
+                <article class="blog-post animate__animated animate__fadeIn">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Interview Preparation">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar-alt"></i> June 8, 2023</span>
+                            <span><i class="far fa-user"></i> By Michael Chen</span>
+                            <span><i class="far fa-folder"></i> Interview Tips</span>
+                        </div>
+                        <h2 class="post-title">The Ultimate Guide to Acing Your Next Job Interview</h2>
+                        <p class="post-excerpt">From common questions to body language tips, this comprehensive guide will help you prepare for your next job interview and make a lasting impression on your potential employer...</p>
+                        <a href="post.html?id=interview-guide" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                
+                <article class="blog-post animate__animated animate__fadeIn">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Remote Work">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar-alt"></i> June 1, 2023</span>
+                            <span><i class="far fa-user"></i> By David Wilson</span>
+                            <span><i class="far fa-folder"></i> Workplace Trends</span>
+                        </div>
+                        <h2 class="post-title">How to Thrive in a Remote Work Environment</h2>
+                        <p class="post-excerpt">With remote work becoming the new normal, discover strategies to stay productive, maintain work-life balance, and advance your career while working from home...</p>
+                        <a href="post.html?id=remote-work" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                
+                <article class="blog-post animate__animated animate__fadeIn">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1579389083078-4e7018379f7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Career Growth">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar-alt"></i> May 25, 2023</span>
+                            <span><i class="far fa-user"></i> By Emily Rodriguez</span>
+                            <span><i class="far fa-folder"></i> Career Growth</span>
+                        </div>
+                        <h2 class="post-title">5 Strategies for Continuous Career Growth</h2>
+                        <p class="post-excerpt">Learn how to take control of your professional development with these proven strategies for continuous learning and career advancement in any industry...</p>
+                        <a href="post.html?id=career-growth" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                
+                <article class="blog-post animate__animated animate__fadeIn">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Salary Negotiation">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar-alt"></i> May 18, 2023</span>
+                            <span><i class="far fa-user"></i> By Robert Taylor</span>
+                            <span><i class="far fa-folder"></i> Career Advice</span>
+                        </div>
+                        <h2 class="post-title">Salary Negotiation: How to Get What You're Worth</h2>
+                        <p class="post-excerpt">Don't leave money on the table! This guide will teach you how to research salaries, frame your value, and negotiate confidently for the compensation you deserve...</p>
+                        <a href="post.html?id=salary-negotiation" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                
+                <div class="pagination">
+                    <a href="#" class="active">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#"><i class="fas fa-chevron-right"></i></a>
+                </div>
+            </main>
+            
+            <aside class="sidebar">
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Categories</h3>
+                    <ul class="categories-list">
+                        <li><a href="#">Career Advice (24)</a></li>
+                        <li><a href="#">Interview Tips (18)</a></li>
+                        <li><a href="#">Resume Help (12)</a></li>
+                        <li><a href="#">Job Search (15)</a></li>
+                        <li><a href="#">Workplace Trends (9)</a></li>
+                        <li><a href="#">Career Growth (11)</a></li>
+                        <li><a href="#">Salary Guides (7)</a></li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Popular Posts</h3>
+                    <ul class="popular-posts">
+                        <li class="popular-post">
+                            <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Resume Tips">
+                            <div class="popular-post-content">
+                                <h4><a href="post.html?id=resume-tips">10 Resume Tips That Will Get You Noticed</a></h4>
+                                <span>June 15, 2023</span>
+                            </div>
+                        </li>
+                        <li class="popular-post">
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Interview Preparation">
+                            <div class="popular-post-content">
+                                <h4><a href="post.html?id=interview-guide">The Ultimate Guide to Acing Your Next Job Interview</a></h4>
+                                <span>June 8, 2023</span>
+                            </div>
+                        </li>
+                        <li class="popular-post">
+                            <img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Salary Negotiation">
+                            <div class="popular-post-content">
+                                <h4><a href="post.html?id=salary-negotiation">Salary Negotiation: How to Get What You're Worth</a></h4>
+                                <span>May 18, 2023</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Tags</h3>
+                    <div class="tags">
+                        <a href="#" class="tag">Resume</a>
+                        <a href="#" class="tag">Interview</a>
+                        <a href="#" class="tag">Career</a>
+                        <a href="#" class="tag">Job Search</a>
+                        <a href="#" class="tag">Networking</a>
+                        <a href="#" class="tag">Salary</a>
+                        <a href="#" class="tag">Skills</a>
+                        <a href="#" class="tag">Remote Work</a>
+                    </div>
+                </div>
+                
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Newsletter</h3>
+                    <p>Subscribe to get the latest career tips and job search advice delivered to your inbox.</p>
+                    <form class="newsletter-form">
+                        <input type="text" placeholder="Your Name">
+                        <input type="email" placeholder="Your Email">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>JobFinder</h3>
+                    <p>Connecting top talent with leading companies worldwide. Our platform makes hiring and job searching efficient and effective.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="jobs.html">Browse Jobs</a></li>
+                        <li><a href="companies.html">Companies</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Career Advice</a></li>
+                        <li><a href="#">Resume Tips</a></li>
+                        <li><a href="#">Interview Prep</a></li>
+                        <li><a href="#">Salary Calculator</a></li>
+                        <li><a href="#">Company Reviews</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p><i class="fas fa-envelope"></i> info@jobfinder.com</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Career Lane, Suite 100<br>San Francisco, CA 94107</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 JobFinder. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        function submitBlog() {
-            const title = document.getElementById('blog-title').value;
-            const content = document.getElementById('blog-content').value;
-            const fileInput = document.getElementById('profile-pic-input');
+        document.addEventListener('DOMContentLoaded', function() {
+            // Back to top button
+            window.addEventListener('scroll', function() {
+                const backToTop = document.getElementById('back-to-top');
+                if (window.pageYOffset > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
             
-            if (!title || !content) {
-                alert("Please fill in all fields.");
-                return;
-            }
-
-            let profilePicURL = "default.png";
-            if (fileInput.files.length > 0) {
-                const file = fileInput.files[0];
-                profilePicURL = URL.createObjectURL(file);
-            }
-
-            const postContainer = document.getElementById('posts-container');
-            const post = document.createElement('div');
-            post.classList.add('blog-post');
-            post.innerHTML = `
-                <img src="${profilePicURL}" class="profile-pic">
-                <h3>${title}</h3>
-                <p>${content}</p>
-                <span class="like-btn" onclick="toggleLike(this)">❤️ 0</span>
-                <span class="comment-btn" onclick="toggleComments(this)">💬</span>
-                <div class="comments-section">
-                    <input type="text" placeholder="Write a comment..." class="comment-input">
-                    <button onclick="addComment(this)">Post</button>
-                    <ul class="comments-list"></ul>
-                </div>
-            `;
-            postContainer.prepend(post);
-            document.getElementById('blog-title').value = '';
-            document.getElementById('blog-content').value = '';
-        }
-        
-        function toggleLike(btn) {
-            let likes = parseInt(btn.textContent.match(/\d+/)[0]);
-            if (btn.classList.contains('liked')) {
-                likes--;
-                btn.classList.remove('liked');
-            } else {
-                likes++;
-                btn.classList.add('liked');
-            }
-            btn.textContent = `❤️ ${likes}`;
-        }
-        
-        function toggleComments(btn) {
-            let commentSection = btn.nextElementSibling;
-            commentSection.style.display = commentSection.style.display === 'none' ? 'block' : 'none';
-        }
-        
-        function addComment(btn) {
-            let input = btn.previousElementSibling;
-            let commentText = input.value;
-            if (!commentText) return;
-            let commentList = btn.nextElementSibling;
-            let li = document.createElement('li');
-            li.textContent = commentText;
-            commentList.appendChild(li);
-            input.value = '';
-        }
+            document.getElementById('back-to-top').addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            
+            // Animate blog posts on scroll
+            const blogPosts = document.querySelectorAll('.blog-post');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate__fadeIn');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            blogPosts.forEach(post => {
+                observer.observe(post);
+            });
+            
+            // Search functionality
+            const searchBox = document.querySelector('.search-box input');
+            const searchButton = document.querySelector('.search-box button');
+            
+            searchButton.addEventListener('click', function() {
+                const searchTerm = searchBox.value.trim();
+                if (searchTerm) {
+                    alert(`Searching for: ${searchTerm}`);
+                    // In a real implementation, this would filter or fetch search results
+                }
+            });
+            
+            searchBox.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchButton.click();
+                }
+            });
+        });
     </script>
 </body>
 </html>
-
